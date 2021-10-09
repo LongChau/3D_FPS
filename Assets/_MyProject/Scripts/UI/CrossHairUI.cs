@@ -26,5 +26,15 @@ namespace FPS
         {
 
         }
+
+        public void PlayCrossHairEffect()
+        {
+
+        }
+
+        public void StopCrossHaidEffect()
+        {
+
+        }
     }
 }

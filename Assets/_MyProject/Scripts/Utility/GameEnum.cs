@@ -62,3 +62,17 @@ public enum ESoundEffect
     Win,
     BusHorn,
 }
+
+public enum EWeaponType
+{
+    Close,
+    Handgun,
+    AutoRifle,
+    SnipeRifle,
+}
+
+public enum EItemType
+{
+    HealthBag,
+    AmmoBag,
+}

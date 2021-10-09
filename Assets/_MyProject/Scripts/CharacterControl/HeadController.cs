@@ -25,7 +25,7 @@ namespace FPS
 
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             LookRotation();
         }
@@ -35,8 +35,8 @@ namespace FPS
             if (_touchRotate.IsTouchDrag && _touchRotate.TouchLength >= _touchLengthThreshold)
             {
                 // Calculate the camera sensitive in both horizontal, vertical.
-                var lookSensitiveX = _touchRotate.NormalizedDirection.x * _lookSpeed * Time.fixedDeltaTime;
-                var lookSensitiveY = _touchRotate.NormalizedDirection.y * _lookSpeed * Time.fixedDeltaTime;
+                var lookSensitiveX = _touchRotate.NormalizedDirection.x * _lookSpeed * Time.deltaTime;
+                var lookSensitiveY = _touchRotate.NormalizedDirection.y * _lookSpeed * Time.deltaTime;
 
                 _xAxisRotation -= lookSensitiveY;
                 // Lock the rotate -90 -> 90
