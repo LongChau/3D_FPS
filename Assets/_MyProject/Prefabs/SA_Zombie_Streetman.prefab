@@ -258,6 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4318088755631830898}
   - component: {fileID: 4318088755641404532}
+  - component: {fileID: 2082852635779481792}
   - component: {fileID: 2608718259001824981}
   m_Layer: 0
   m_Name: SA_Zombie_Streetman
@@ -301,6 +302,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!195 &2082852635779481792
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318088755632020620}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &2608718259001824981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25cd16f8f13fb964b8524c2c1187e0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 4318088755641404532}
+  _currentState: 0
+  _movementSpeed: 0
 --- !u!1 &4318088755632021752
 GameObject:
   m_ObjectHideFlags: 0

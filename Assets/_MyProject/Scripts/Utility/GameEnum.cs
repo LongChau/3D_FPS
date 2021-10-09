@@ -76,3 +76,12 @@ public enum EItemType
     HealthBag,
     AmmoBag,
 }
+
+public enum EEnemyState
+{
+    Idle, 
+    Walking,
+    Attack,
+    Eating,
+    Die,
+}
