@@ -7,23 +7,26 @@ namespace FPS
 {
     public class CharacterWeapon : MonoBehaviour
     {
-        [SerializeField]
-        private WeaponControl _handgunArm;
-        [SerializeField]
-        private WeaponControl _rifleArm;
-
         // Slot 0 is handgun, slot 1 is rifle.
         [SerializeField]
         private WeaponControl[] _weapons;
-
         private WeaponControl _currentArm;
 
         // Start is called before the first frame update
         void Start()
         {
+            InitWeapons();
             _currentArm = _weapons[0];
             _currentArm.Active();
-            _rifleArm.InActive();
+            _weapons[1].InActive();
+        }
+
+        private void InitWeapons()
+        {
+            for (int i = 0; i < _weapons.Length; i++)
+            {
+                _weapons[i].Init();
+            }
         }
 
         public void OnBtnFirePressed()

@@ -1,7 +1,9 @@
 ﻿using DG.Tweening;
+using LC.Ultility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace FPS
@@ -23,6 +25,12 @@ namespace FPS
         [SerializeField]
         private GameObject _hitEffect;
 
+        [Header("---UI---")]
+        [SerializeField]
+        private TextMeshProUGUI _txtAmmo;
+        [SerializeField]
+        private TextMeshProUGUI _txtAmmoLeft;
+
         [Header("---Gun info---")]
         [SerializeField]
         private EWeaponType _weaponType;
@@ -32,6 +40,8 @@ namespace FPS
         private int _curAmmo;
         [SerializeField]
         private int _ammoPerMagazines;
+        [SerializeField]
+        private int _ammoLeft;
         [SerializeField]
         private int _maxAmmo;
         [SerializeField]
@@ -62,10 +72,43 @@ namespace FPS
 
         public EWeaponType WeaponType => _weaponType;
 
+        public int CurAmmo 
+        { 
+            get => _curAmmo;
+            set
+            {
+                _curAmmo = value;
+                _txtAmmo.SetText(_curAmmo.ToString());
+            }
+        }
+
+        public int AmmoLeft 
+        { 
+            get => _ammoLeft;
+            set
+            {
+                _ammoLeft = value;
+                _txtAmmoLeft.SetText(_ammoLeft.ToString());
+            }
+        }
+
         // Start is called before the first frame update
         void Start()
         {
+            this.RegisterListener(EventID.GetAmmo, Handle_GetAmmo);
+        }
+
+        public void Init()
+        {
             _nextShootTime = 0f;
+            CurAmmo = _ammoPerMagazines;
+            AmmoLeft = _maxAmmo;
+        }
+
+        private void Handle_GetAmmo(object obj)
+        {
+            int addAmmo = (int)obj;
+            AmmoLeft = Mathf.Clamp(AmmoLeft + addAmmo, 0, _maxAmmo);
         }
 
         // Update is called once per frame
@@ -74,9 +117,9 @@ namespace FPS
             //Shoot
             if (_weaponType == EWeaponType.AutoRifle)
             {
-                if (IsTriggered && Time.time >= _nextShootTime && _curAmmo > 0)
+                if (IsTriggered && Time.time >= _nextShootTime && CurAmmo > 0)
                 {
-                    _nextShootTime = Time.time + 1 / _fireRate;
+                    _nextShootTime = Time.time + 1.0f / _fireRate;
                     var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
                     RaycastHit hit;
                     bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
@@ -93,20 +136,18 @@ namespace FPS
                     }
 
                     // Apply gun recoil
-                    transform.DOShakePosition(0.2f, 0.01f);
-                    _curAmmo--;
+                    transform.DOShakePosition(0.5f, 0.05f, 1, 20);
+                    CurAmmo--;
                 }
                 else
                 {
                     // Reset gun position.
-                    transform.localPosition = Vector3.zero;
-                    transform.DOLocalMove(Vector3.zero, 0.2f);
-                    //transform.DOMove(_gunStartPosition, 0.1f);
+                    transform.DOLocalMove(Vector3.zero, 0.5f);
                 }
             }
             else
             {
-                if (IsTriggered && _curAmmo > 0)
+                if (IsTriggered && CurAmmo > 0)
                 {
                     var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
                     RaycastHit hit;
@@ -115,32 +156,42 @@ namespace FPS
                     if (isHitSomething)
                     {
                         Debug.Log($"Hit {hit.collider.name}");
-                        _curAmmo--;
+                        CurAmmo--;
                     }
 
                     // Apply gun recoil
-                    transform.DOShakePosition(0.2f, 0.01f, 1, 0);
+                    transform.DOShakePosition(0.2f, 0.01f, 5, 30);
                     IsTriggered = false;
                 }
                 else
                 {
                     // Reset gun position.
-                    //transform.localPosition = Vector3.zero;
                     transform.DOLocalMove(Vector3.zero, 0.2f);
                 }
             }
         }
 
+        //private void ApplyRecoid()
+        //{
+        //    transform.DOShakePosition(0.2f, 0.01f, 5, 30);
+        //}
+
         public void Reload()
         {
-            if (_ammoPerMagazines < _maxAmmo)
+            if (AmmoLeft > 0)
             {
-                _maxAmmo -= _ammoPerMagazines - _curAmmo;
-                _curAmmo = _ammoPerMagazines;
-            }
-            else
-            {
-                _curAmmo = _maxAmmo;
+                var ammoNeeded = _ammoPerMagazines - CurAmmo;
+                if (ammoNeeded <= AmmoLeft)
+                {
+                    CurAmmo += ammoNeeded;
+                    AmmoLeft -= ammoNeeded;
+                }
+                else if (ammoNeeded > AmmoLeft)
+                {
+                    ammoNeeded = AmmoLeft;
+                    CurAmmo += ammoNeeded;
+                    AmmoLeft = 0;
+                }
             }
         }
 
@@ -154,6 +205,11 @@ namespace FPS
         {
             gameObject.SetActive(false);
             IsTriggered = false;
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Instance?.RemoveListener(EventID.GetAmmo, Handle_GetAmmo);
         }
     }
 }
