@@ -79,9 +79,10 @@ public enum EItemType
 
 public enum EEnemyState
 {
-    Idle, 
-    Walking,
-    Attack,
-    Eating,
-    Die,
+    Idle = 0, 
+    Wander = 1,
+    Eating = 2,
+    Attack = 3,
+    Chasing = 4,
+    Die = 5,
 }

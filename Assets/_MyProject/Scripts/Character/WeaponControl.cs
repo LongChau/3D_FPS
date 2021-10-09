@@ -24,6 +24,8 @@ namespace FPS
         private CrossHairUI _crossHair;
         [SerializeField]
         private GameObject _hitEffect;
+        [SerializeField]
+        private SpawnBulletPoint _spawnBulletPoint;
 
         [Header("---UI---")]
         [SerializeField]
@@ -138,6 +140,7 @@ namespace FPS
                     // Apply gun recoil
                     transform.DOShakePosition(0.5f, 0.05f, 1, 20);
                     CurAmmo--;
+                    _spawnBulletPoint.SpawnEnity();
                 }
                 else
                 {
@@ -162,6 +165,7 @@ namespace FPS
                     // Apply gun recoil
                     transform.DOShakePosition(0.2f, 0.01f, 5, 30);
                     IsTriggered = false;
+                    _spawnBulletPoint.SpawnEnity();
                 }
                 else
                 {
