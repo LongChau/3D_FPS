@@ -1532,6 +1532,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &234056567 stripped
@@ -2332,6 +2337,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SA_Zombie_Streetman (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
@@ -4274,6 +4284,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &584836638 stripped
@@ -6183,6 +6198,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &1184549783 stripped
@@ -6983,6 +7003,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SA_Zombie_Streetman (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
@@ -8145,6 +8170,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &1306066211 stripped
@@ -9257,6 +9287,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &1508483817 stripped
@@ -10166,6 +10201,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &1528527398 stripped
@@ -10966,6 +11006,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SA_Zombie_Streetman (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
@@ -12424,6 +12469,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &1747885340 stripped
@@ -13306,6 +13356,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SA_Zombie_Streetman (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
@@ -14190,6 +14245,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &1841895884 stripped
@@ -14865,7 +14925,7 @@ PrefabInstance:
     - target: {fileID: 4318088755631830898, guid: 68230bbbe6f88914d920fc12a809df5c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.061560005
       objectReference: {fileID: 0}
     - target: {fileID: 4318088755631830898, guid: 68230bbbe6f88914d920fc12a809df5c,
         type: 3}
@@ -14875,7 +14935,7 @@ PrefabInstance:
     - target: {fileID: 4318088755631830898, guid: 68230bbbe6f88914d920fc12a809df5c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.99810344
       objectReference: {fileID: 0}
     - target: {fileID: 4318088755631830898, guid: 68230bbbe6f88914d920fc12a809df5c,
         type: 3}
@@ -14890,7 +14950,7 @@ PrefabInstance:
     - target: {fileID: 4318088755631830898, guid: 68230bbbe6f88914d920fc12a809df5c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 187.05899
       objectReference: {fileID: 0}
     - target: {fileID: 4318088755631830898, guid: 68230bbbe6f88914d920fc12a809df5c,
         type: 3}
@@ -16133,6 +16193,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &2039223968 stripped
@@ -16934,6 +16999,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SA_Zombie_Streetman (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 4318088755632020620, guid: 68230bbbe6f88914d920fc12a809df5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68230bbbe6f88914d920fc12a809df5c, type: 3}
 --- !u!4 &2050021279 stripped
@@ -17513,6 +17583,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SA_Zombie_Streetman BOSS
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554970587528663869, guid: f27f5015002870c44b667a87b4336437,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f27f5015002870c44b667a87b4336437, type: 3}

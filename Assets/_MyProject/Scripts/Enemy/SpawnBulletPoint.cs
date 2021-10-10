@@ -32,7 +32,7 @@ namespace FPS
             float y = transform.position.y;
             float z = transform.position.z;
             float3 newPos = new float3(x, y, z);
-                
+            
             World.DefaultGameObjectInjectionWorld.EntityManager.SetComponentData(instance, new Translation { Value = newPos });
         }
 

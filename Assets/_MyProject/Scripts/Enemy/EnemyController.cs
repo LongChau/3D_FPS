@@ -32,6 +32,8 @@ namespace FPS
         private int _maxHp;
         [SerializeField]
         private int _score;
+        [SerializeField]
+        private int _damage = 5;
 
         private int _currentHp;
 
@@ -104,6 +106,8 @@ namespace FPS
             }
         }
 
+        public int Damage => _damage;
+
         private void Awake()
         {
             CurrentHp = _maxHp;
@@ -125,6 +129,12 @@ namespace FPS
         void Start()
         {
             _chasingBehaviour.Event_ClosedDistance += Handle_Event_ClosedDistance;
+            _attackBehaviour.Event_FarDistance += Handle_Event_FarDistance;
+        }
+
+        private void Handle_Event_FarDistance()
+        {
+            CurrentState = EEnemyState.Chasing;
         }
 
         private void Handle_Event_ClosedDistance()
@@ -136,7 +146,8 @@ namespace FPS
         void Update()
         {
             if (CurrentState == EEnemyState.Die) return;
-            if (_lineOfSight.enabled && _lineOfSight.IsInSight && CurrentState != EEnemyState.Chasing)
+            if (_lineOfSight.enabled && _lineOfSight.IsInSight && CurrentState != EEnemyState.Chasing &&
+                CurrentState != EEnemyState.Attack)
             {
                 CurrentState = EEnemyState.Chasing;
             }
@@ -188,6 +199,12 @@ namespace FPS
         {
             CurrentHp -= dmg;
             _hitAudio.Play();
+        }
+
+        private void OnDestroy()
+        {
+            _chasingBehaviour.Event_ClosedDistance -= Handle_Event_ClosedDistance;
+            _attackBehaviour.Event_FarDistance -= Handle_Event_FarDistance;
         }
     }
 }
