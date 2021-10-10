@@ -14,13 +14,14 @@ namespace FPS
 
         private BlobAssetStore _store;
         private Entity _enemyEnity;
+        private GameObjectConversionSettings _setting;
 
         // Start is called before the first frame update
         void Start()
         {
             _store = new BlobAssetStore();
-            var setting = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _store);
-            _enemyEnity = GameObjectConversionUtility.ConvertGameObjectHierarchy(_bulletPrefab.gameObject, setting);
+            _setting = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _store);
+            _enemyEnity = GameObjectConversionUtility.ConvertGameObjectHierarchy(_bulletPrefab.gameObject, _setting);
             //SpawnEnity();
         }
 
@@ -41,6 +42,8 @@ namespace FPS
             //    World.DefaultGameObjectInjectionWorld.EntityManager.DestroyEntity(_enemyEnity);
             //if (_store != null)
             //    _store.Dispose();
+
+            _setting.BlobAssetStore.Dispose();
         }
     }
 }

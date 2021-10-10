@@ -136,7 +136,7 @@ namespace FPS
         void Update()
         {
             if (CurrentState == EEnemyState.Die) return;
-            if (_lineOfSight.IsInSight && CurrentState != EEnemyState.Chasing)
+            if (_lineOfSight.enabled && _lineOfSight.IsInSight && CurrentState != EEnemyState.Chasing)
             {
                 CurrentState = EEnemyState.Chasing;
             }
