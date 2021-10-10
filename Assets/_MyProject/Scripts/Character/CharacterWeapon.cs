@@ -55,7 +55,8 @@ namespace FPS
 
         public void ReloadWeapon()
         {
-            _currentArm.Reload();
+            if (_currentArm.CurAmmo < _currentArm.AmmoPerMagazines)
+                _currentArm.Reload();
         }
 
         public void ToggleScope()

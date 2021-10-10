@@ -60,14 +60,14 @@ namespace FPS
             float x = _joystick.Horizontal;
             float z = _joystick.Vertical;
 
-            if ((x != 0f || z != 0f) && !_audio.isPlaying)
-            {
-                _audio.PlayOneShot(_movementClip);
-            }
-            else
-            {
-                _audio.Stop();
-            }
+            //if ((x != 0f || z != 0f) && !_audio.isPlaying)
+            //{
+            //    _audio.PlayOneShot(_movementClip);
+            //}
+            //else
+            //{
+            //    _audio.Stop();
+            //}
 
             var move = transform.forward * z + transform.right * x;
             //Debug.Log($"Horizontal: {x} Vertical: {z}");

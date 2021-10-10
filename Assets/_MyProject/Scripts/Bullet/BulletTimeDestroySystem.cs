@@ -26,5 +26,11 @@ namespace FPS
 
             return inputDeps;
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+        }
     }
 }

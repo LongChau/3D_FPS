@@ -17,6 +17,10 @@ namespace FPS
         [SerializeField]
         private LineOfSight _lineOfSight;
 
+        [Header("--Audio--")]
+        [SerializeField]
+        private AudioSource _hitAudio;
+
         [Header("---Setting---")]
         [SerializeField]
         private float _wanderRadius;
@@ -177,6 +181,7 @@ namespace FPS
         public void TakeDamage(int dmg)
         {
             CurrentHp -= dmg;
+            _hitAudio.Play();
         }
     }
 }

@@ -37,7 +37,10 @@ namespace FPS
 
         private void OnDestroy()
         {
-            _store?.Dispose();
+            //if (_enemyEnity != null)
+            //    World.DefaultGameObjectInjectionWorld.EntityManager.DestroyEntity(_enemyEnity);
+            //if (_store != null)
+            //    _store.Dispose();
         }
     }
 }

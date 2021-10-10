@@ -11,6 +11,8 @@ namespace FPS
     public class WeaponControl : MonoBehaviour
     {
         [SerializeField]
+        private Animator _anim;
+        [SerializeField]
         private CharacterWeapon _charWeapon;
         [SerializeField]
         private Transform _head;
@@ -26,6 +28,8 @@ namespace FPS
         private GameObject _hitEffect;
         [SerializeField]
         private SpawnBulletPoint _spawnBulletPoint;
+        [SerializeField]
+        private Transform _muzzle;
 
         [Header("---UI---")]
         [SerializeField]
@@ -49,9 +53,11 @@ namespace FPS
         [SerializeField]
         private int _damage;
         [SerializeField]
-        private float _camScopePos;
+        private Vector3 _camScopePos;
         [SerializeField]
-        private float _camUnScopePos;
+        private Vector3 _camUnScopePos;
+        [SerializeField]
+        private float _reloadTime;
 
         [Header("Audio")]
         [SerializeField]
@@ -74,9 +80,9 @@ namespace FPS
                 _isScope = value;
                 _crossHair.gameObject.SetActive(!_isScope);
                 if (_isScope)
-                    _weaponCam.transform.DOLocalMoveX(_camScopePos, 0.5f);
+                    _weaponCam.transform.DOLocalMove(_camScopePos, 0.5f);
                 else
-                    _weaponCam.transform.DOLocalMoveX(_camUnScopePos, 0.5f);
+                    _weaponCam.transform.DOLocalMove(_camUnScopePos, 0.5f);
             }
         }
 
@@ -102,6 +108,15 @@ namespace FPS
             }
         }
 
+        public int AmmoPerMagazines => _ammoPerMagazines;
+
+        public bool IsReloading;
+
+        private void OnValidate()
+        {
+            _anim = GetComponent<Animator>();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -124,6 +139,8 @@ namespace FPS
         // Update is called once per frame
         void Update()
         {
+            if (IsReloading) return;
+
             if (IsTriggered && CurAmmo == 0)
                 _outOfAmmoAudio.Play();
 
@@ -133,26 +150,15 @@ namespace FPS
                 if (IsTriggered && Time.time >= _nextShootTime && CurAmmo > 0)
                 {
                     _nextShootTime = Time.time + 1.0f / _fireRate;
-                    var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
-                    RaycastHit hit;
-                    bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
-                    Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
-                    if (isHitSomething)
-                    {
-                        //Debug.Log($"Hit {hit.collider.name}");
-                        var damageable = hit.collider.GetComponent<IDamageable>();
-                        if (damageable != null)
-                        {
-                            //damageable.CurrentHp -= _damage;
-                            damageable.TakeDamage(_damage);
-                            //damageable.InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 1.0f);
-                        }
-                    }
 
-                    // Apply gun recoil
-                    transform.DOShakePosition(0.5f, 0.05f, 1, 20);
-                    CurAmmo--;
-                    _spawnBulletPoint.SpawnEnity();
+                    var recoidData = new RecoidData
+                    {
+                        duration = 0.5f,
+                        strength = 0.05f,
+                        vibrato = 1,
+                        randomness = 20
+                    };
+                    Fire(recoidData);
                 }
                 else
                 {
@@ -164,27 +170,15 @@ namespace FPS
             {
                 if (IsTriggered && CurAmmo > 0)
                 {
-                    var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
-                    RaycastHit hit;
-                    bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
-                    Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
-                    if (isHitSomething)
+                    var recoidData = new RecoidData
                     {
-                        Debug.Log($"Hit {hit.collider.name}");
-                        var damageable = hit.collider.GetComponent<IDamageable>();
-                        if (damageable != null)
-                        {
-                            damageable.TakeDamage(_damage);
-                        }
-                    }
-
-                    // Apply gun recoil
-                    transform.DOShakePosition(0.2f, 0.01f, 5, 30);
-                    CurAmmo--;
+                        duration = 0.2f,
+                        strength = 0.01f,
+                        vibrato = 5,
+                        randomness = 30
+                    };
+                    Fire(recoidData);
                     IsTriggered = false;
-                    _spawnBulletPoint.SpawnEnity();
-
-                    _fireAudio.Play();
                 }
                 else
                 {
@@ -194,25 +188,59 @@ namespace FPS
             }
         }
 
+        private void Fire(RecoidData recoidData)
+        {
+            var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
+            RaycastHit hit;
+            bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
+            Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
+            if (isHitSomething)
+            {
+                Debug.Log($"Hit {hit.collider.name}");
+                var damageable = hit.collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(_damage);
+                    damageable.InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 5.0f);
+                }
+            }
+
+            // Apply gun recoil
+            transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
+            CurAmmo--;
+            _spawnBulletPoint.SpawnEnity();
+            _muzzle.gameObject.SetActive(true);
+            DOVirtual.DelayedCall(0.1f, () => _muzzle.gameObject.SetActive(false));
+
+            _fireAudio.Play();
+        }
+
         public void Reload()
         {
             if (AmmoLeft > 0)
             {
-                var ammoNeeded = _ammoPerMagazines - CurAmmo;
-                if (ammoNeeded <= AmmoLeft)
+                _anim.SetTrigger("TriggerReload");
+                _reloadAudio.Play();
+                IsReloading = true;
+                DOVirtual.DelayedCall(_reloadTime, () =>
                 {
-                    CurAmmo += ammoNeeded;
-                    AmmoLeft -= ammoNeeded;
-                }
-                else if (ammoNeeded > AmmoLeft)
-                {
-                    ammoNeeded = AmmoLeft;
-                    CurAmmo += ammoNeeded;
-                    AmmoLeft = 0;
-                }
-            }
+                    var ammoNeeded = _ammoPerMagazines - CurAmmo;
+                    if (ammoNeeded <= AmmoLeft)
+                    {
+                        CurAmmo += ammoNeeded;
+                        AmmoLeft -= ammoNeeded;
+                    }
+                    else if (ammoNeeded > AmmoLeft)
+                    {
+                        ammoNeeded = AmmoLeft;
+                        CurAmmo += ammoNeeded;
+                        AmmoLeft = 0;
+                    }
 
-            _reloadAudio.Play();
+                    _anim.SetTrigger("TriggerIdle");
+                    IsReloading = false;
+                });
+            }
         }
 
         public void Active()
@@ -231,6 +259,14 @@ namespace FPS
         {
             DOTween.Clear();
             EventManager.Instance?.RemoveListener(EventID.GetAmmo, Handle_GetAmmo);
+        }
+
+        private struct RecoidData
+        {
+            public float duration;
+            public float strength;
+            public int vibrato;
+            public float randomness;
         }
     }
 }

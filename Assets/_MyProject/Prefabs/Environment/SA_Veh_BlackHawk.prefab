@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 1950332285304205378}
   - component: {fileID: 2014732147755034132}
   - component: {fileID: 7103057123350386214}
+  - component: {fileID: 560749805136073053}
   m_Layer: 0
   m_Name: SA_Veh_BlackHawk
   m_TagString: Untagged
@@ -351,6 +352,18 @@ MonoBehaviour:
   _rotorTail: {fileID: 1950332285306589748}
   _rotorMain: {fileID: 1950332285306656836}
   _rotorSpeed: 50
+--- !u!122 &560749805136073053
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950332285306372662}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4282010321
+  m_Size: 5
 --- !u!1 &1950332285306386196
 GameObject:
   m_ObjectHideFlags: 0
