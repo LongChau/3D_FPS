@@ -35,13 +35,14 @@ namespace FPS
             }
         }
 
+        public static Vector3 CharacterPosition;
+
         // Start is called before the first frame update
         void Start()
         {
             // Set as init...
             CurHealth = _maxHealth / 2;
 
-            
             this.RegisterListener(EventID.GetHealth, Handle_GetHealth);
         }
 
@@ -50,12 +51,10 @@ namespace FPS
             CurHealth += (int)hp;
         }
 
-
-
         // Update is called once per frame
         void Update()
         {
-
+            CharacterPosition = transform.position;
         }
 
         [ContextMenu("TakeDamage")]

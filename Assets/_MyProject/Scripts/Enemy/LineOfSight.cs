@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using Unity.Mathematics;
+//using Unity.Jobs;
 
 namespace FPS
 {
@@ -14,9 +16,9 @@ namespace FPS
         [SerializeField]
         private float _range;
 
-        public Transform Target;
+        public Vector3 TargetPos { get; private set; }
 
-        public bool InSight;
+        public bool IsInSight { get; private set; }
 
         // Start is called before the first frame update
         void Start()
@@ -27,18 +29,20 @@ namespace FPS
         // Update is called once per frame
         void Update()
         {
-            InSight = IsInSight();
+            IsInSight = CheckInSight();
         }
 
-        private bool IsInSight()
+        private bool CheckInSight()
         {
-            var targetPos = new Vector2(Target.position.x, Target.position.z);
+            // Check the distance.
+            var targetPos = new Vector2(TargetPos.x, TargetPos.z);
             var myPos = new Vector2(transform.position.x, transform.position.z);
             bool isClosedRange = Vector2.Distance(targetPos, myPos) <= _range;
 
             var leftLine = _leftSight.forward * _range;
             var rightLine = _rightSight.forward * _range;
 
+            // Check the angle.
             var leftLine2D = new Vector2(leftLine.x, leftLine.z);
             var rightLine2D = new Vector2(rightLine.x, rightLine.z);
             var targetDirection = targetPos - myPos;
@@ -52,12 +56,21 @@ namespace FPS
             return isClosedRange && isInLine;
         }
 
+        //struct CheckInSightJob : IJob
+        //{
+        //    public bool isCloseRange;
+        //    public bool isInLine;
+        //    public void Execute()
+        //    {
+                
+        //    }
+        //}
+
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawRay(_leftSight.transform.position, _leftSight.forward * _range);
             Gizmos.DrawRay(_rightSight.transform.position, _rightSight.forward * _range);
         }
-
-
     }
 }

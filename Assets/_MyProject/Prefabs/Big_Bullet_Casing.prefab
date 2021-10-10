@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3569297485405843898}
   - component: {fileID: 5810276556795975708}
   - component: {fileID: 9077030205317551308}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Big_Bullet_Casing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
