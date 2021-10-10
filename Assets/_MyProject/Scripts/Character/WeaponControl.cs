@@ -58,6 +58,8 @@ namespace FPS
         private Vector3 _camUnScopePos;
         [SerializeField]
         private float _reloadTime;
+        [SerializeField]
+        private float _takeOutTime;
 
         [Header("Audio")]
         [SerializeField]
@@ -110,7 +112,8 @@ namespace FPS
 
         public int AmmoPerMagazines => _ammoPerMagazines;
 
-        public bool IsReloading;
+        public bool IsReloading { get; private set; }
+        public bool IsTakingOut { get; private set; }
 
         private void OnValidate()
         {
@@ -139,7 +142,7 @@ namespace FPS
         // Update is called once per frame
         void Update()
         {
-            if (IsReloading) return;
+            if (IsReloading || IsTakingOut) return;
 
             if (IsTriggered && CurAmmo == 0)
                 _outOfAmmoAudio.Play();
@@ -247,6 +250,18 @@ namespace FPS
         {
             gameObject.SetActive(true);
             IsScope = false;
+            TakingOut();
+        }
+
+        private void TakingOut()
+        {
+            _anim.SetTrigger("TriggerTakeOut");
+            IsTakingOut = true;
+            DOVirtual.DelayedCall(_takeOutTime, () =>
+            {
+                _anim.SetTrigger("TriggerIdle");
+                IsTakingOut = false;
+            });
         }
 
         public void InActive()

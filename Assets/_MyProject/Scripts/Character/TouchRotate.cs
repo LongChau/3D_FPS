@@ -7,6 +7,8 @@ namespace FPS
 {
     public class TouchRotate : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerExitHandler
     {
+
+
         private Vector2 _touchDown;
         private Vector2 _touchUp;
 
@@ -27,8 +29,6 @@ namespace FPS
             RawDirection = _touchUp - _touchDown;
             NormalizedDirection = RawDirection.normalized;
             TouchLength = RawDirection.magnitude;
-            //Debug.Log($"Direction: {NormalizedDirection}");
-            //Debug.Log($"Magnitude: {RawDirection.magnitude}");
         }
 
         public void OnPointerDown(PointerEventData eventData)
