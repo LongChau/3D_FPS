@@ -215,7 +215,6 @@ namespace FPS
             CurAmmo--;
             _spawnBulletPoint.SpawnEnity();
             _muzzle.gameObject.SetActive(true);
-            //DOVirtual.DelayedCall(0.1f, () => _muzzle.gameObject.SetActive(false));
             _crossHair.PlayCrossHairEffect(10f, 0.2f, 1f, 0.5f);
             _fireAudio.Play();
         }
