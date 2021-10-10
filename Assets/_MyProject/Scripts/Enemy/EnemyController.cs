@@ -16,6 +16,8 @@ namespace FPS
         private NavMeshAgent _agent;
         [SerializeField]
         private LineOfSight _lineOfSight;
+        [SerializeField]
+        private Collider _col;
 
         [Header("--Audio--")]
         [SerializeField]
@@ -36,6 +38,7 @@ namespace FPS
         private WanderBehaviour _wanderBehaviour;
         private ChasingBehaviour _chasingBehaviour;
         private AttackBehaviour _attackBehaviour;
+        private DeadBehaviour _deadBehaviour;
 
         private Coroutine _unharmedCoroutine;
 
@@ -74,6 +77,7 @@ namespace FPS
                             _anim.SetTrigger("TriggerDie");
                             StopUnharmedActions();
                             _lineOfSight.enabled = false;
+                            _col.enabled = false;
                             this.PostEvent(EventID.GainScore, _score);
                             break;
                         default:
@@ -110,10 +114,11 @@ namespace FPS
             _wanderBehaviour = _anim.GetBehaviour<WanderBehaviour>();
             _chasingBehaviour = _anim.GetBehaviour<ChasingBehaviour>();
             _attackBehaviour = _anim.GetBehaviour<AttackBehaviour>();
+            _deadBehaviour = _anim.GetBehaviour<DeadBehaviour>();
             _wanderBehaviour.Init(this);
             _chasingBehaviour.Init(this);
             _attackBehaviour.Init(this);
-
+            _deadBehaviour.Init(this);
         }
 
         // Start is called before the first frame update

@@ -19,6 +19,8 @@ namespace FPS
         [SerializeField]
         private float _touchLengthThreshold;
 
+        private Vector2 _lookInput;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -27,26 +29,63 @@ namespace FPS
 
         private void Update()
         {
-            LookRotation();
+            if (!_touchRotate.IsTouchDrag) return;
+
+            GetTouchInput();
+            //LookRotation();
+            LookAround();
         }
 
-        private void LookRotation()
+        private void LookAround()
         {
-            if (_touchRotate.IsTouchDrag && _touchRotate.TouchLength >= _touchLengthThreshold)
+            //Debug.Log("LookAround()");
+            _xAxisRotation = Mathf.Clamp(_xAxisRotation - _lookInput.y, -90f, 90f);
+            transform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
+            // Should also rotate the character.
+            _charCtrl.transform.Rotate(Vector3.up, _lookInput.x);
+        }
+
+        private void GetTouchInput()
+        {
+            //Debug.Log("GetTouchInput()");
+            for (int i = 0; i < Input.touchCount; i++)
             {
-                // Calculate the camera sensitive in both horizontal, vertical.
-                var lookSensitiveX = _touchRotate.NormalizedDirection.x * _lookSpeed * Time.deltaTime;
-                var lookSensitiveY = _touchRotate.NormalizedDirection.y * _lookSpeed * Time.deltaTime;
-
-                _xAxisRotation -= lookSensitiveY;
-                // Lock the rotate -90 -> 90
-                _xAxisRotation = Mathf.Clamp(_xAxisRotation, -90f, 90f);
-
-                // Apply rotation to head.
-                transform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
-                // Should also rotate the character.
-                _charCtrl.transform.Rotate(Vector3.up, lookSensitiveX);
+                Touch t = Input.GetTouch(i);
+                switch (t.phase)
+                {
+                    case TouchPhase.Began:
+                        break;
+                    case TouchPhase.Moved:
+                        _lookInput = t.deltaPosition * _lookSpeed * Time.deltaTime;
+                        break;
+                    case TouchPhase.Stationary:
+                        _lookInput = Vector2.zero;
+                        break;
+                    case TouchPhase.Ended:
+                        break;
+                    case TouchPhase.Canceled:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        //private void LookRotation()
+        //{
+        //    var lookSensitiveX = _touchRotate.Joystick.Horizontal * _lookSpeed * Time.deltaTime;
+        //    var lookSensitiveY = _touchRotate.Joystick.Vertical * _lookSpeed * Time.deltaTime;
+
+        //    _xAxisRotation -= lookSensitiveY;
+        //    // Lock the rotate -90 -> 90
+        //    _xAxisRotation = Mathf.Clamp(_xAxisRotation, -90f, 90f);
+
+        //    // Apply rotation to head.
+        //    transform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
+        //    // Should also rotate the character.
+        //    _charCtrl.transform.Rotate(Vector3.up, lookSensitiveX);
+
+
+        //}
     }
 }

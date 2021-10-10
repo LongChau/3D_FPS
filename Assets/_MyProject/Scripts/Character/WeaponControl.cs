@@ -23,8 +23,6 @@ namespace FPS
         [SerializeField]
         private Camera _weaponCam;
         [SerializeField]
-        private CrossHairUI _crossHair;
-        [SerializeField]
         private GameObject _hitEffect;
         [SerializeField]
         private SpawnBulletPoint _spawnBulletPoint;
@@ -36,6 +34,8 @@ namespace FPS
         private TextMeshProUGUI _txtAmmo;
         [SerializeField]
         private TextMeshProUGUI _txtAmmoLeft;
+        [SerializeField]
+        private CrossHairUI _crossHair;
 
         [Header("---Gun info---")]
         [SerializeField]
@@ -147,6 +147,8 @@ namespace FPS
             if (IsTriggered && CurAmmo == 0)
                 _outOfAmmoAudio.Play();
 
+            _muzzle.gameObject.SetActive(false);
+
             //Shoot
             if (_weaponType == EWeaponType.AutoRifle)
             {
@@ -199,7 +201,7 @@ namespace FPS
             Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
             if (isHitSomething)
             {
-                Debug.Log($"Hit {hit.collider.name}");
+                //Debug.Log($"Hit {hit.collider.name}");
                 var damageable = hit.collider.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
@@ -213,8 +215,8 @@ namespace FPS
             CurAmmo--;
             _spawnBulletPoint.SpawnEnity();
             _muzzle.gameObject.SetActive(true);
-            DOVirtual.DelayedCall(0.1f, () => _muzzle.gameObject.SetActive(false));
-
+            //DOVirtual.DelayedCall(0.1f, () => _muzzle.gameObject.SetActive(false));
+            _crossHair.PlayCrossHairEffect(10f, 0.2f, 1f, 0.5f);
             _fireAudio.Play();
         }
 

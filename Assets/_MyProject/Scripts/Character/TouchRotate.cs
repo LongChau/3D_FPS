@@ -7,7 +7,8 @@ namespace FPS
 {
     public class TouchRotate : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerExitHandler
     {
-
+        [SerializeField]
+        private FloatingJoystick _joystick;
 
         private Vector2 _touchDown;
         private Vector2 _touchUp;
@@ -19,6 +20,7 @@ namespace FPS
         public bool IsTouchDown { get; private set; }
         public bool IsTouchUp { get; private set; }
         public bool IsTouchDrag { get; private set; }
+        public FloatingJoystick Joystick => _joystick;
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -27,7 +29,10 @@ namespace FPS
 
             _touchUp = eventData.position;
             RawDirection = _touchUp - _touchDown;
-            NormalizedDirection = RawDirection.normalized;
+            //NormalizedDirection = RawDirection.normalized;
+            float x = _joystick.Horizontal;
+            float y = _joystick.Vertical;
+            NormalizedDirection = new Vector2(x, y);
             TouchLength = RawDirection.magnitude;
         }
 

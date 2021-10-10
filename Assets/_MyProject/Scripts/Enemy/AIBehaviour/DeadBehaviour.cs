@@ -7,10 +7,18 @@ namespace FPS
 {
     public class DeadBehaviour : StateMachineBehaviour
     {
+        private EnemyController _enemy;
+
+        public void Init(EnemyController enemy)
+        {
+            _enemy = enemy;
+        }
+
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             Log.Info("Enter Dead state");
+            _enemy.Agent.isStopped = true;
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

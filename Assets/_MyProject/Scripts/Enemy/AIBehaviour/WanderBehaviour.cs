@@ -9,6 +9,9 @@ namespace FPS
     public class WanderBehaviour : StateMachineBehaviour
     {
         private EnemyController _enemy;
+        private float _randomTimer;
+        [SerializeField]
+        private float _maxRandomTimer = 5;
 
         public void Init(EnemyController enemy)
         {
@@ -20,13 +23,20 @@ namespace FPS
         {
             Log.Info("Enter Wander state");
             _enemy.Agent.isStopped = false;
+            _randomTimer = _maxRandomTimer;
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            Vector3 newPos = RandomNavSphere(_enemy.transform.position, _enemy.WanderRadius, -1);
-            _enemy.Agent.SetDestination(newPos);
+            _enemy.Agent.isStopped = false;
+            if ((_randomTimer -= Time.deltaTime) <= 0 ||  
+                Vector3.Distance(_enemy.transform.position, _enemy.Agent.destination) <= 0.01f)
+            {
+                Vector3 newPos = RandomNavSphere(_enemy.transform.position, _enemy.WanderRadius, -1);
+                _enemy.Agent.SetDestination(newPos);
+                _randomTimer = _maxRandomTimer;
+            }
         }
 
         public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)

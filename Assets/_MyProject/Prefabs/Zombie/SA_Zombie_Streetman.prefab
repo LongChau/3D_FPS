@@ -354,8 +354,9 @@ MonoBehaviour:
   _currentState: 0
   _agent: {fileID: 3105799246799215936}
   _lineOfSight: {fileID: 2170742564597139335}
+  _col: {fileID: 4286746419165471091}
   _hitAudio: {fileID: 840678671335279708}
-  _wanderRadius: 5
+  _wanderRadius: 8
   _closeDistance: 2
   _maxHp: 15
   _score: 10
@@ -369,7 +370,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.3
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
