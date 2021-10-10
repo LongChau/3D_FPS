@@ -180,7 +180,8 @@ namespace FPS
 
         public void InstantiateEffect(GameObject effectPrefab, Vector3 hitPosition, Quaternion rotation, float destroyTime)
         {
-
+            var fx = Instantiate(effectPrefab, hitPosition, rotation);
+            Destroy(fx, destroyTime);
         }
 
         public void TakeDamage(int dmg)

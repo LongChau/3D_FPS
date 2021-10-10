@@ -28,6 +28,8 @@ namespace FPS
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            if (_enemy.CurrentState == EEnemyState.Die) return;
+
             bool isClosed = Vector3.Distance(_enemy.transform.position, CharacterControl.CharacterPosition) <= _enemy.CloseDistance;
             if (isClosed)
             {

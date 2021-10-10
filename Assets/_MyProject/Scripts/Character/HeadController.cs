@@ -24,16 +24,20 @@ namespace FPS
         // Start is called before the first frame update
         void Start()
         {
-
+#if UNITY_EDITOR
+            _lookSpeed = 100f;
+#endif
         }
 
         private void Update()
         {
+#if UNITY_EDITOR
+            LookRotation();
+#else
             if (!_touchRotate.IsTouchDrag) return;
-
             GetTouchInput();
-            //LookRotation();
             LookAround();
+#endif
         }
 
         private void LookAround()
@@ -71,21 +75,19 @@ namespace FPS
             }
         }
 
-        //private void LookRotation()
-        //{
-        //    var lookSensitiveX = _touchRotate.Joystick.Horizontal * _lookSpeed * Time.deltaTime;
-        //    var lookSensitiveY = _touchRotate.Joystick.Vertical * _lookSpeed * Time.deltaTime;
+        private void LookRotation()
+        {
+            var lookSensitiveX = _touchRotate.Joystick.Horizontal * _lookSpeed * Time.deltaTime;
+            var lookSensitiveY = _touchRotate.Joystick.Vertical * _lookSpeed * Time.deltaTime;
 
-        //    _xAxisRotation -= lookSensitiveY;
-        //    // Lock the rotate -90 -> 90
-        //    _xAxisRotation = Mathf.Clamp(_xAxisRotation, -90f, 90f);
+            _xAxisRotation -= lookSensitiveY;
+            // Lock the rotate -90 -> 90
+            _xAxisRotation = Mathf.Clamp(_xAxisRotation, -90f, 90f);
 
-        //    // Apply rotation to head.
-        //    transform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
-        //    // Should also rotate the character.
-        //    _charCtrl.transform.Rotate(Vector3.up, lookSensitiveX);
-
-
-        //}
+            // Apply rotation to head.
+            transform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
+            // Should also rotate the character.
+            _charCtrl.transform.Rotate(Vector3.up, lookSensitiveX);
+        }
     }
 }

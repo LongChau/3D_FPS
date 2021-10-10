@@ -22,6 +22,15 @@ namespace FPS
         public bool IsTouchDrag { get; private set; }
         public FloatingJoystick Joystick => _joystick;
 
+        private void Awake()
+        {
+#if UNITY_EDITOR
+            _joystick.gameObject.SetActive(true);
+#else
+            _joystick.gameObject.SetActive(false);
+#endif
+        }
+
         public void OnDrag(PointerEventData eventData)
         {
             //Debug.Log($"Touch OnDrag: {eventData.position}");

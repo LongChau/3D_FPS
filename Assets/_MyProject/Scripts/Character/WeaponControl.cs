@@ -23,11 +23,15 @@ namespace FPS
         [SerializeField]
         private Camera _weaponCam;
         [SerializeField]
-        private GameObject _hitEffect;
-        [SerializeField]
         private SpawnBulletPoint _spawnBulletPoint;
         [SerializeField]
         private Transform _muzzle;
+
+        [Header("---FX---")]
+        [SerializeField]
+        private GameObject _hitEffect;
+        [SerializeField]
+        private GameObject _bulletHole;
 
         [Header("---UI---")]
         [SerializeField]
@@ -197,7 +201,8 @@ namespace FPS
         {
             var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
             RaycastHit hit;
-            bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
+            bool isHitSomething = Physics.SphereCast(ray, 0.1f, out hit, float.PositiveInfinity);
+            //bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
             Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
             if (isHitSomething)
             {
@@ -207,6 +212,12 @@ namespace FPS
                 {
                     damageable.TakeDamage(_damage);
                     damageable.InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 5.0f);
+                }
+                else
+                {
+                    // Hit environment
+                    var hole = Instantiate(_bulletHole, hit.point, Quaternion.identity);
+                    Destroy(hole, 1f);
                 }
             }
 
