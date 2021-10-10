@@ -13,7 +13,7 @@ namespace FPS
         [SerializeField]
         private FixedJoystick _joystick;
         [SerializeField]
-        private AudioSource _audioSource;
+        private AudioSource _audio;
 
         [SerializeField]
         private Transform _head;
@@ -36,6 +36,10 @@ namespace FPS
         [SerializeField]
         private LayerMask _groundMask;
 
+        [Header("--Audio--")]
+        [SerializeField]
+        private AudioClip _movementClip;
+
         private float _dirY;
         private bool _isJumped;
         private bool _isGrounded;
@@ -55,6 +59,15 @@ namespace FPS
         {
             float x = _joystick.Horizontal;
             float z = _joystick.Vertical;
+
+            if ((x != 0f || z != 0f) && !_audio.isPlaying)
+            {
+                _audio.PlayOneShot(_movementClip);
+            }
+            else
+            {
+                _audio.Stop();
+            }
 
             var move = transform.forward * z + transform.right * x;
             //Debug.Log($"Horizontal: {x} Vertical: {z}");

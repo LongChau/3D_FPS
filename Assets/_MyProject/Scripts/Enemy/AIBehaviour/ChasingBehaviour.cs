@@ -22,6 +22,7 @@ namespace FPS
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             Log.Info("Enter Chasing state");
+            _enemy.Agent.isStopped = false;
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

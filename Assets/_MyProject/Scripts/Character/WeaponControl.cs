@@ -53,6 +53,14 @@ namespace FPS
         [SerializeField]
         private float _camUnScopePos;
 
+        [Header("Audio")]
+        [SerializeField]
+        private AudioSource _reloadAudio;
+        [SerializeField]
+        private AudioSource _fireAudio;
+        [SerializeField]
+        private AudioSource _outOfAmmoAudio;
+
         private float _nextShootTime;
         private bool _isScope;
 
@@ -116,6 +124,9 @@ namespace FPS
         // Update is called once per frame
         void Update()
         {
+            if (IsTriggered && CurAmmo == 0)
+                _outOfAmmoAudio.Play();
+
             //Shoot
             if (_weaponType == EWeaponType.AutoRifle)
             {
@@ -172,6 +183,8 @@ namespace FPS
                     CurAmmo--;
                     IsTriggered = false;
                     _spawnBulletPoint.SpawnEnity();
+
+                    _fireAudio.Play();
                 }
                 else
                 {
@@ -198,6 +211,8 @@ namespace FPS
                     AmmoLeft = 0;
                 }
             }
+
+            _reloadAudio.Play();
         }
 
         public void Active()
