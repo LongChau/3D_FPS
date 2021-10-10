@@ -20,6 +20,10 @@ namespace FPS
 
         public bool IsInSight { get; private set; }
 
+        [Header("---TEST ONLY---")]
+        public bool test;
+        public Transform targetTest;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -29,6 +33,8 @@ namespace FPS
         // Update is called once per frame
         void Update()
         {
+            if (test) TargetPos = targetTest.position;
+            else TargetPos = CharacterControl.CharacterPosition;
             IsInSight = CheckInSight();
         }
 

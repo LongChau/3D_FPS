@@ -22,7 +22,20 @@ namespace FPS
         [SerializeField]
         private Canvas_Player _canvasPlayer;
 
-        public bool IsDead { get; private set; }
+        private int _score;
+
+        private bool _isDead;
+
+        public bool IsDead 
+        {
+            get => _isDead;
+            private set
+            {
+                _isDead = value;
+                if (_isDead)
+                    this.PostEvent(EventID.PlayerLoose);
+            }
+        }
 
         public int CurHealth 
         { 
@@ -35,18 +48,39 @@ namespace FPS
             }
         }
 
+        public int Score 
+        { 
+            get => _score;
+            set
+            {
+                _score = value;
+                _canvasPlayer.UpdateScore(_score);
+            }
+        }
+
         public static Vector3 CharacterPosition;
+
+        private void Awake()
+        {
+            // Set as init...
+            Score = 0;
+            CurHealth = _maxHealth / 2;
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-            // Set as init...
-            CurHealth = _maxHealth / 2;
-
-            this.RegisterListener(EventID.GetHealth, Handle_GetHealth);
+            this.RegisterListener(EventID.GainScore, Handle_UpdateScore);
+            this.RegisterListener(EventID.GetHealth, Handle_UpdateHealth);
+            this.RegisterListener(EventID.AttackCharacter, Handle_UpdateHealth);
         }
 
-        private void Handle_GetHealth(object hp)
+        private void Handle_UpdateScore(object score)
+        {
+            Score += (int)score;
+        }
+
+        private void Handle_UpdateHealth(object hp)
         {
             CurHealth += (int)hp;
         }
@@ -75,6 +109,24 @@ namespace FPS
         public void TakeDamage(int damage)
         {
             CurHealth -= damage;
+        }
+
+        private void OnDestroy()
+        {
+            EventManager.Instance?.RemoveListener(EventID.GetHealth, Handle_UpdateHealth);
+            EventManager.Instance?.RemoveListener(EventID.AttackCharacter, Handle_UpdateHealth);
+        }
+
+        [ContextMenu("TestWin")]
+        private void TestWin()
+        {
+            this.PostEvent(EventID.PlayerWin, 10);
+        }
+
+        [ContextMenu("TestLoose")]
+        private void TestLoose()
+        {
+            this.PostEvent(EventID.PlayerLoose);
         }
     }
 }

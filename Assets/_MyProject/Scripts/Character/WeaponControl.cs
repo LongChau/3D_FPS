@@ -129,11 +129,12 @@ namespace FPS
                     if (isHitSomething)
                     {
                         //Debug.Log($"Hit {hit.collider.name}");
-                        var shootable = hit.collider.GetComponent<IShootable>();
-                        if (shootable != null)
+                        var damageable = hit.collider.GetComponent<IDamageable>();
+                        if (damageable != null)
                         {
-                            shootable.CurrentHp -= _damage;
-                            //shootable.InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 1.0f);
+                            //damageable.CurrentHp -= _damage;
+                            damageable.TakeDamage(_damage);
+                            //damageable.InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 1.0f);
                         }
                     }
 
@@ -159,11 +160,16 @@ namespace FPS
                     if (isHitSomething)
                     {
                         Debug.Log($"Hit {hit.collider.name}");
-                        CurAmmo--;
+                        var damageable = hit.collider.GetComponent<IDamageable>();
+                        if (damageable != null)
+                        {
+                            damageable.TakeDamage(_damage);
+                        }
                     }
 
                     // Apply gun recoil
                     transform.DOShakePosition(0.2f, 0.01f, 5, 30);
+                    CurAmmo--;
                     IsTriggered = false;
                     _spawnBulletPoint.SpawnEnity();
                 }
@@ -174,11 +180,6 @@ namespace FPS
                 }
             }
         }
-
-        //private void ApplyRecoid()
-        //{
-        //    transform.DOShakePosition(0.2f, 0.01f, 5, 30);
-        //}
 
         public void Reload()
         {
@@ -213,6 +214,7 @@ namespace FPS
 
         private void OnDestroy()
         {
+            DOTween.Clear();
             EventManager.Instance?.RemoveListener(EventID.GetAmmo, Handle_GetAmmo);
         }
     }

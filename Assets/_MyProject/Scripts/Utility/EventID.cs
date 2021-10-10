@@ -5,4 +5,9 @@ public enum EventID
     None = -1,
     GetHealth,
     GetAmmo,
+    AttackCharacter,
+    GainScore,
+    OpenMainSceneMenu,
+    PlayerWin,
+    PlayerLoose,
 }

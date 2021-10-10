@@ -12,10 +12,14 @@ namespace FPS
         private WeaponControl[] _weapons;
         private WeaponControl _currentArm;
 
+        private void Awake()
+        {
+            InitWeapons();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
-            InitWeapons();
             _currentArm = _weapons[0];
             _currentArm.Active();
             _weapons[1].InActive();

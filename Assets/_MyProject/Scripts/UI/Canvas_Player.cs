@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using LC.Ultility;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,6 +33,16 @@ namespace FPS
         public void UpdateHealthUI(int curHp, int maxHp)
         {
             _imgHp.fillAmount = (float)curHp / maxHp;
+        }
+
+        internal void UpdateScore(int score)
+        {
+            _txtScore.SetText($"Score: {score}");
+        }
+
+        public void OnBtnSettingClicked()
+        {
+            this.PostEvent(EventID.OpenMainSceneMenu);
         }
     }
 }

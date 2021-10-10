@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using LC.Ultility;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace FPS
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController : MonoBehaviour, IDamageable
     {
         [SerializeField]
         private Animator _anim;
@@ -21,18 +22,18 @@ namespace FPS
         private float _wanderRadius;
         [SerializeField]
         private float _closeDistance;
+        [SerializeField]
+        private int _maxHp;
+        [SerializeField]
+        private int _score;
+
+        private int _currentHp;
 
         private WanderBehaviour _wanderBehaviour;
         private ChasingBehaviour _chasingBehaviour;
         private AttackBehaviour _attackBehaviour;
 
-        private int _idleTime;
-        private int _wanderTime;
-        private int _eatingTime;
-
-        private Coroutine _idle;
-        private Coroutine _wander;
-        private Coroutine _eat;
+        private Coroutine _unharmedCoroutine;
 
         public EEnemyState CurrentState 
         { 
@@ -47,27 +48,29 @@ namespace FPS
                     {
                         case EEnemyState.Idle:
                             _anim.SetTrigger("TriggerIdle");
-                            StartIdling();
+                            StartUnharmedAction(3, 5);
                             break;
                         case EEnemyState.Wander:
                             _anim.SetTrigger("TriggerWalk");
-                            StartWandering();
+                            StartUnharmedAction(3, 5);
                             break;
                         case EEnemyState.Eating:
                             _anim.SetTrigger("TriggerEating");
-                            StartEating();
+                            StartUnharmedAction(3, 5);
                             break;
                         case EEnemyState.Attack:
                             _anim.SetTrigger("TriggerAttack");
-
+                            StopUnharmedActions();
                             break;
                         case EEnemyState.Chasing:
                             _anim.SetTrigger("TriggerChasing");
-
+                            StopUnharmedActions();
                             break;
                         case EEnemyState.Die:
-                            //_anim.SetTrigger("TriggerDie");
-
+                            _anim.SetTrigger("TriggerDie");
+                            StopUnharmedActions();
+                            _lineOfSight.enabled = false;
+                            this.PostEvent(EventID.GainScore, _score);
                             break;
                         default:
                             break;
@@ -81,19 +84,37 @@ namespace FPS
         public float WanderRadius => _wanderRadius;
         public float CloseDistance => _closeDistance;
 
-        // Start is called before the first frame update
-        void Start()
+        public int CurrentHp 
+        { 
+            get => _currentHp; 
+            set
+            {
+                _currentHp = value;
+                _currentHp = Mathf.Clamp(_currentHp, 0, _maxHp);
+                if (_currentHp == 0 && CurrentState != EEnemyState.Die)
+                    CurrentState = EEnemyState.Die;
+            }
+        }
+
+        private void Awake()
         {
+            CurrentHp = _maxHp;
+
             //CurrentState = EEnemyState.Idle;
-            RandomState();
+            RandomNextUnharmedStates();
 
             _wanderBehaviour = _anim.GetBehaviour<WanderBehaviour>();
             _chasingBehaviour = _anim.GetBehaviour<ChasingBehaviour>();
             _attackBehaviour = _anim.GetBehaviour<AttackBehaviour>();
             _wanderBehaviour.Init(this);
             _chasingBehaviour.Init(this);
-            //_attackBehaviour.Init(_agent, transform, _wanderRadius);
+            _attackBehaviour.Init(this);
 
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
             _chasingBehaviour.Event_ClosedDistance += Handle_Event_ClosedDistance;
         }
 
@@ -105,77 +126,57 @@ namespace FPS
         // Update is called once per frame
         void Update()
         {
+            if (CurrentState == EEnemyState.Die) return;
             if (_lineOfSight.IsInSight && CurrentState != EEnemyState.Chasing)
             {
                 CurrentState = EEnemyState.Chasing;
             }
-            else if (!_lineOfSight.IsInSight && CurrentState != EEnemyState.Chasing)
-            {
-
-            }
         }
 
-        private void StopStaticActions()
+        public void StopUnharmedActions()
         {
-
+            if (_unharmedCoroutine != null) StopCoroutine(_unharmedCoroutine);
         }
 
-        private void StartIdling()
+        private void StartUnharmedAction(int minTime, int maxTime)
         {
-            _idle = StartCoroutine(IEStartIdling());
+            Log.Info("StartUnharmedAction()");
+            _unharmedCoroutine = StartCoroutine(IEUnharmedAction(minTime, maxTime));
         }
 
-        private IEnumerator IEStartIdling()
+        private IEnumerator IEUnharmedAction(int minTime, int maxTime)
         {
-            _idleTime = Random.Range(2, 5);
+            var timer = Random.Range(minTime, maxTime);
             var wait = new WaitForSecondsRealtime(1);
-            while (!_lineOfSight.IsInSight || _idleTime > 0)
+            while (!_lineOfSight.IsInSight && timer > 0)
             {
-                _idleTime--;
+                timer--;
                 yield return wait;
             }
-            RandomState();
+            RandomNextUnharmedStates();
         }
 
-        private void StartWandering()
-        {
-            _wander = StartCoroutine(IEStartWandering());
-        }
-
-        private IEnumerator IEStartWandering()
-        {
-            _wanderTime = Random.Range(10, 20);
-            var wait = new WaitForSecondsRealtime(1);
-            while (!_lineOfSight.IsInSight || _wanderTime > 0)
-            {
-                _wanderTime--;
-                yield return wait;
-            }
-            RandomState();
-        }
-
-        private void StartEating()
-        {
-            _wander = StartCoroutine(IEStartEating());
-        }
-
-        private IEnumerator IEStartEating()
-        {
-            _eatingTime = Random.Range(5, 10);
-            var wait = new WaitForSecondsRealtime(_eatingTime);
-            while (!_lineOfSight.IsInSight || _eatingTime > 0)
-            {
-                _eatingTime--;
-                yield return wait;
-            }
-            RandomState();
-        }
-
-        private void RandomState()
+        private void RandomNextUnharmedStates()
         {
             var stateNum = Random.Range(0, 3);
             var state = (EEnemyState)stateNum;
             CurrentState = state;
+            Log.Info($"RandomUnharmedStates() => {CurrentState}");
+        }
+
+        public void ChangeAttackAnimationMultiplier(float speed)
+        {
+            _anim.SetFloat("AttackMultiplie", speed);
+        }
+
+        public void InstantiateEffect(GameObject effectPrefab, Vector3 hitPosition, Quaternion rotation, float destroyTime)
+        {
+
+        }
+
+        public void TakeDamage(int dmg)
+        {
+            CurrentHp -= dmg;
         }
     }
 }

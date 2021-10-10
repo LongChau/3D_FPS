@@ -37,7 +37,7 @@ namespace FPS
 
         private void OnDestroy()
         {
-            _store.Dispose();
+            _store?.Dispose();
         }
     }
 }

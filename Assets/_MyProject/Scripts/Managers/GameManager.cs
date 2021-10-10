@@ -13,6 +13,9 @@ namespace FPS
     /// </summary>
     public class GameManager : MonoSingletonExt<GameManager>
     {
+        public float loadingScenePercentage;
+        public bool isLoadingScene;
+
         public override void Init()
         {
             base.Init();
@@ -23,6 +26,32 @@ namespace FPS
         void Start()
         {
 
+        }
+
+        public void LoadScene(int sceneIndex)
+        {
+            StartCoroutine(IELoadScene(sceneIndex));
+        }
+
+        IEnumerator IELoadScene(int sceneIndex)
+        {
+            isLoadingScene = true;
+            // Load loading scene.
+            var asyncOperation = SceneManager.LoadSceneAsync(2, LoadSceneMode.Single);
+            yield return new WaitUntil(() => asyncOperation.isDone);
+            // Then load main scene.
+            asyncOperation = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
+            //asyncOperation.allowSceneActivation = false;
+            while (!asyncOperation.isDone)
+            {
+                loadingScenePercentage = asyncOperation.progress;
+                //Log.Info($"Percent: {loadingScenePercentage}");
+                yield return new WaitForEndOfFrame();
+            }
+
+            isLoadingScene = false;
+            //asyncOperation.allowSceneActivation = true;
+            SceneManager.UnloadSceneAsync(2);
         }
     }
 }
