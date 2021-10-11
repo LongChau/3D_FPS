@@ -10244,10 +10244,8 @@ MonoBehaviour:
   _gunPlacement: {fileID: 1097918307992763423}
   _weaponCam: {fileID: 7604587334335425103}
   _spawnBulletPoint: {fileID: 2323645050923520890}
-  _muzzle: {fileID: 845280584817788000}
+  _muzzle: {fileID: 720074613032980560}
   _hitEffect: {fileID: 7321109496328900745, guid: 7a3f8c6bfecf3c24c823dff471036ff0,
-    type: 3}
-  _hitEnvEffect: {fileID: 2384595741631831522, guid: c6f4678eaa1e26140892de3e944ea0cb,
     type: 3}
   _bulletHole: {fileID: 1133313454119596, guid: 79927c6543a058b4383885fac101fe2e,
     type: 3}
@@ -22458,10 +22456,8 @@ MonoBehaviour:
   _gunPlacement: {fileID: 7624343109844268585}
   _weaponCam: {fileID: 7604587334335425103}
   _spawnBulletPoint: {fileID: 9039968509450825009}
-  _muzzle: {fileID: 7134547848533942244}
+  _muzzle: {fileID: 5708189670834302789}
   _hitEffect: {fileID: 7321109496328900745, guid: 7a3f8c6bfecf3c24c823dff471036ff0,
-    type: 3}
-  _hitEnvEffect: {fileID: 2384595741631831522, guid: c6f4678eaa1e26140892de3e944ea0cb,
     type: 3}
   _bulletHole: {fileID: 1133313454119596, guid: 79927c6543a058b4383885fac101fe2e,
     type: 3}

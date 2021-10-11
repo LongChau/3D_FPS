@@ -13,16 +13,26 @@ namespace FPS
         {
             float deltaTime = Time.DeltaTime;
 
-            Entities
-                .WithoutBurst().WithStructuralChanges()
-                .ForEach((Entity entity, ref Translation position, ref BulletLifeTimeData lifeTimeData) =>
-                {
-                    lifeTimeData.lifeTime -= deltaTime;
-                    if (lifeTimeData.lifeTime <= 0)
-                    {
-                        EntityManager.DestroyEntity(entity);
-                    }
-                }).Run();
+            Entities.WithBurst().WithStructuralChanges()
+                 .ForEach((Entity entity, ref Translation position, ref BulletLifeTimeData lifeTimeData) =>
+                 {
+                     lifeTimeData.lifeTime -= deltaTime;
+                     if (lifeTimeData.lifeTime <= 0)
+                     {
+                         EntityManager.DestroyEntity(entity);
+                     }
+                 }).Run();
+
+            //Entities
+            //    .WithoutBurst().WithStructuralChanges()
+            //    .ForEach((Entity entity, ref Translation position, ref BulletLifeTimeData lifeTimeData) =>
+            //    {
+            //        lifeTimeData.lifeTime -= deltaTime;
+            //        if (lifeTimeData.lifeTime <= 0)
+            //        {
+            //            EntityManager.DestroyEntity(entity);
+            //        }
+            //    }).Run();
 
             return inputDeps;
         }

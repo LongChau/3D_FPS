@@ -25,7 +25,7 @@ namespace FPS
         [SerializeField]
         private SpawnBulletPoint _spawnBulletPoint;
         [SerializeField]
-        private Transform _muzzle;
+        private GameObject _muzzle;
 
         [Header("---FX---")]
         [SerializeField]
@@ -124,6 +124,11 @@ namespace FPS
             _anim = GetComponent<Animator>();
         }
 
+        private void Awake()
+        {
+            
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -151,7 +156,7 @@ namespace FPS
             if (IsTriggered && CurAmmo == 0)
                 _outOfAmmoAudio.Play();
 
-            _muzzle.gameObject.SetActive(false);
+            _muzzle.SetActive(false);
 
             //Shoot
             if (_weaponType == EWeaponType.AutoRifle)
@@ -234,7 +239,7 @@ namespace FPS
             transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
             CurAmmo--;
             _spawnBulletPoint.SpawnEnity();
-            _muzzle.gameObject.SetActive(true);
+            _muzzle.SetActive(true);
             _crossHair.PlayCrossHairEffect(10f, 0.2f, 1f, 0.5f);
             _fireAudio.Play();
         }
