@@ -9,6 +9,9 @@ namespace FPS
     public class AttackBehaviour : StateMachineBehaviour
     {
         private EnemyController _enemy;
+        [SerializeField]
+        private float _attackRate = 1f;
+        private float _nextAttack;
 
         public event Action Event_FarDistance;
 
@@ -22,12 +25,17 @@ namespace FPS
         {
             Log.Info("Enter Attack state");
             _enemy.Agent.isStopped = false;
-            EventManager.Instance.PostEvent(EventID.AttackCharacter, -_enemy.Damage);
+            //EventManager.Instance.PostEvent(EventID.AttackCharacter, -_enemy.Damage);
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
         override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            if (Time.time >= _nextAttack)
+            {
+                _nextAttack = Time.time + 1f / _attackRate;
+                EventManager.Instance.PostEvent(EventID.AttackCharacter, -_enemy.Damage);
+            }
             bool isClosed = Vector3.Distance(_enemy.transform.position, CharacterControl.CharacterPosition) <= _enemy.CloseDistance;
             if (!isClosed)
             {

@@ -171,8 +171,12 @@ namespace FPS
                 }
                 else
                 {
-                    // Reset gun position.
-                    transform.DOLocalMove(Vector3.zero, 0.5f);
+                    if (transform.localPosition != Vector3.zero)
+                    {
+                        // Reset gun position.
+                        transform.DOLocalMove(Vector3.zero, 0.5f);
+                        _fpsCam.transform.DOLocalMove(Vector3.zero, 0.2f);
+                    }
                 }
             }
             else
@@ -191,15 +195,20 @@ namespace FPS
                 }
                 else
                 {
-                    // Reset gun position.
-                    transform.DOLocalMove(Vector3.zero, 0.2f);
+                    if (transform.localPosition != Vector3.zero)
+                    {
+                        // Reset gun position.
+                        transform.DOLocalMove(Vector3.zero, 0.2f);
+                        _fpsCam.transform.DOLocalMove(Vector3.zero, 0.2f);
+                    }
                 }
             }
         }
 
         private void Fire(RecoidData recoidData)
         {
-            var ray = new Ray(_fpsCam.transform.position, _fpsCam.transform.forward);
+            Vector3 shakeCam = new Vector3(UnityEngine.Random.Range(0.05f, 0.2f), UnityEngine.Random.Range(0.05f, 0.2f), 0f);
+            var ray = new Ray(_fpsCam.transform.position + shakeCam, _fpsCam.transform.forward);
             RaycastHit hit;
             bool isHitSomething = Physics.SphereCast(ray, 0.1f, out hit, float.PositiveInfinity);
             //bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
