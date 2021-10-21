@@ -73,14 +73,13 @@ namespace FPS
 
         public void OnBtnRestartClicked()
         {
-            //var asyncOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
             DOTween.Clear();
-            GameManager.Instance.LoadScene(1);
+            GameManager.Instance.LoadSceneWithName(GameScenes.BATTLE_SCENE);
         }
 
         public void OnBtnMainMenuClicked()
         {
-            GameManager.Instance.LoadScene(0);
+            GameManager.Instance.LoadSceneWithName(GameScenes.MENU_SCENE);
         }
 
         public void OnBtnBackClicked()

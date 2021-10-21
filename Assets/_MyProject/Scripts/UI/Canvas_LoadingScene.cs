@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ namespace FPS
     {
         [SerializeField]
         private Image _imgLoadingBar;
+        [SerializeField]
+        private TextMeshProUGUI _txtLoadingInfo;
 
         private void Awake()
         {
@@ -24,7 +27,10 @@ namespace FPS
         private void Update()
         {
             if (GameManager.Instance.isLoadingScene)
-                _imgLoadingBar.fillAmount = GameManager.Instance.loadingScenePercentage;
+            {
+                _imgLoadingBar.fillAmount = GameManager.Instance.LoadingScenePercentage;
+                _txtLoadingInfo.SetText(GameManager.Instance.LoadingInfo);
+            }
         }
     }
 }

@@ -55,7 +55,7 @@ namespace FPS
 
         public void ReloadWeapon()
         {
-            if (_currentArm.CurAmmo < _currentArm.AmmoPerMagazines)
+            if (_currentArm.CurAmmo < _currentArm.AmmoPerMagazines && !_currentArm.IsReloading)
                 _currentArm.Reload();
         }
 

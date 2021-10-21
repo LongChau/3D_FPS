@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyProject/Scenes/LoadingScene.unity
     guid: 8b27f8a0bf71eea4ab8d194cc86c47a1
-  - enabled: 0
-    path: Assets/_MyProject/Scenes/TestScene.unity
-    guid: d36ff6b648b483242aef9a49d7b63110
+  - enabled: 1
+    path: Assets/_MyProject/Scenes/BattleScene.unity
+    guid: 87f2878fbc66c9949b1328de1e7315db
+  - enabled: 1
+    path: Assets/_MyProject/Scenes/Level_01.unity
+    guid: 995ad29debfb1574ea97ca0f5c036512
   m_configObjects: {}

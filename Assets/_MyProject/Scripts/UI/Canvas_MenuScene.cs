@@ -15,8 +15,8 @@ namespace FPS
 
         public void OnBtnPlayClicked()
         {
-            //var asyncOperation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
-            GameManager.Instance.LoadScene(1);
+            //GameManager.Instance.LoadSceneWithName(GameScenes.BATTLE_SCENE);
+            GameManager.Instance.LoadBattleScene();
         }
     }
 }
