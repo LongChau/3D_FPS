@@ -37,47 +37,23 @@ namespace FPS
         {
             if (test) TargetPos = targetTest.position;
             else TargetPos = CharacterControl.CharacterPosition;
-            //IsInSight = CheckInSight();
-
             ExecuteCheckInSightJob();
         }
-
-        //private bool CheckInSight()
-        //{
-        //    // Check the distance.
-        //    var targetPos = new Vector2(TargetPos.x, TargetPos.z);
-        //    var myPos = new Vector2(transform.position.x, transform.position.z);
-        //    bool isClosedRange = Vector2.Distance(targetPos, myPos) <= _range;
-
-        //    var leftLine = _leftSight.forward * _range;
-        //    var rightLine = _rightSight.forward * _range;
-
-        //    // Check the angle.
-        //    var leftLine2D = new Vector2(leftLine.x, leftLine.z);
-        //    var rightLine2D = new Vector2(rightLine.x, rightLine.z);
-        //    var targetDirection = targetPos - myPos;
-
-        //    float angleArea = Vector2.Angle(leftLine2D, rightLine2D);
-        //    bool withinLeft = Vector2.Angle(leftLine2D, targetDirection) < angleArea;
-        //    bool withinRight = Vector2.Angle(rightLine2D, targetDirection) < angleArea;
-
-        //    bool isInLine = withinLeft && withinRight;
-
-        //    return isClosedRange && isInLine;
-        //}
 
         public void ExecuteCheckInSightJob()
         {
             CheckInSightJob job = new CheckInSightJob(new float2(TargetPos.x, TargetPos.z), 
                 new float2(transform.position.x, transform.position.z), 
                 _leftSight.forward, _rightSight.forward, _range);
+
             var jobHandle = job.Schedule();
             jobHandle.Complete();
+
             IsInSight = job.results[0];
             job.results.Dispose();
         }
 
-        //[BurstCompile]
+        [BurstCompile]
         struct CheckInSightJob : IJob
         {
             public float2 _targetPos;

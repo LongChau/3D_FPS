@@ -113,7 +113,7 @@ namespace FPS
             CurrentHp = _maxHp;
 
             //CurrentState = EEnemyState.Idle;
-            RandomNextUnharmedStates();
+            RandomNextUnharmedState();
 
             _wanderBehaviour = _anim.GetBehaviour<WanderBehaviour>();
             _chasingBehaviour = _anim.GetBehaviour<ChasingBehaviour>();
@@ -173,10 +173,10 @@ namespace FPS
                 timer--;
                 yield return wait;
             }
-            RandomNextUnharmedStates();
+            RandomNextUnharmedState();
         }
 
-        private void RandomNextUnharmedStates()
+        private void RandomNextUnharmedState()
         {
             var stateNum = Random.Range(0, 3);
             var state = (EEnemyState)stateNum;
