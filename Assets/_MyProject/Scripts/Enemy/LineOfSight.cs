@@ -46,9 +46,11 @@ namespace FPS
                 new float2(transform.position.x, transform.position.z), 
                 _leftSight.forward, _rightSight.forward, _range);
 
+            // Schedule the job and wait until it complete.
             var jobHandle = job.Schedule();
             jobHandle.Complete();
 
+            // Get the result and dispose the block.
             IsInSight = job.results[0];
             job.results.Dispose();
         }

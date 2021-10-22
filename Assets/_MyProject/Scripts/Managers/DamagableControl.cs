@@ -8,12 +8,6 @@ namespace FPS
     {
         public Dictionary<int, IDamageable> DictDamageables = new Dictionary<int, IDamageable>();
 
-        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        //private void RegisterEvents()
-        //{
-
-        //}
-
         public override void Init()
         {
             base.Init();
@@ -21,12 +15,6 @@ namespace FPS
 
         // Start is called before the first frame update
         void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
         {
 
         }

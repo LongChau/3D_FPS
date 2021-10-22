@@ -179,9 +179,7 @@ namespace FPS
                 {
                     if (transform.localPosition != Vector3.zero)
                     {
-                        // Reset gun position.
-                        transform.DOLocalMove(Vector3.zero, 0.5f);
-                        _fpsCam.transform.DOLocalMove(Vector3.zero, 0.2f);
+                        ResetGunPosition();
                     }
                 }
             }
@@ -203,12 +201,19 @@ namespace FPS
                 {
                     if (transform.localPosition != Vector3.zero)
                     {
-                        // Reset gun position.
-                        transform.DOLocalMove(Vector3.zero, 0.2f);
-                        _fpsCam.transform.DOLocalMove(Vector3.zero, 0.2f);
+                        ResetGunPosition();
                     }
                 }
             }
+        }
+
+        private void ResetGunPosition()
+        {
+            // Reset gun position.
+            //transform.position = Vector3.zero;
+            //_fpsCam.transform.position = Vector3.zero;
+            transform.DOLocalMove(Vector3.zero, 0.2f);
+            _fpsCam.transform.DOLocalMove(Vector3.zero, 0.2f);
         }
 
         IDamageable damageable;
@@ -237,7 +242,7 @@ namespace FPS
             }
 
             // Apply gun recoil
-            //transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
+            transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
             CurAmmo--;
             _spawnBulletPoint.SpawnEnity();
             _muzzle.SetActive(true);
