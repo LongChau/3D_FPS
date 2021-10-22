@@ -21,6 +21,14 @@ namespace FPS
         private Vector2 _startLeft;
         private Vector2 _startRight;
 
+        //private Sequence _seq;
+
+        //private Tweener tween1;
+        //private Tweener tween2;
+        //private Tweener tween3;
+        //private Tweener tween4;
+        //private Tween tween5;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -28,6 +36,24 @@ namespace FPS
             _startDown = _downCross.anchoredPosition;
             _startLeft = _leftCross.anchoredPosition;
             _startRight = _rightCross.anchoredPosition;
+
+            //_seq = DOTween.Sequence();
+
+            //var tween1 = _upCross.DOPunchAnchorPos(Vector2.up * 10f, 0.2f);
+            //var tween2 = _downCross.DOPunchAnchorPos(Vector2.down * 10f, 0.2f);
+            //var tween3 = _leftCross.DOPunchAnchorPos(Vector2.left * 10f, 0.2f);
+            //var tween4 = _rightCross.DOPunchAnchorPos(Vector2.right * 10f, 0.2f);
+
+            //var tween5 = DOVirtual.DelayedCall(1f, () =>
+            //{
+            //    _upCross.DOAnchorPos(_startUp, 0.5f);
+            //    _downCross.DOAnchorPos(_startDown, 0.5f);
+            //    _leftCross.DOAnchorPos(_startLeft, 0.5f);
+            //    _rightCross.DOAnchorPos(_startRight, 0.5f);
+            //});
+
+            //_seq.Append(tween1).Append(tween2).Append(tween3).Append(tween4).Append(tween5);
+            //_seq.Play();
         }
 
         public void PlayCrossHairEffect(float punchForce, float duration, float resetDuration, float moveBackDuration)

@@ -210,6 +210,7 @@ namespace FPS
             }
         }
 
+        IDamageable damageable;
         private void Fire(RecoidData recoidData)
         {
             Vector3 shakeCam = new Vector3(UnityEngine.Random.Range(0.05f, 0.2f), UnityEngine.Random.Range(0.05f, 0.2f), 0f);
@@ -217,11 +218,11 @@ namespace FPS
             RaycastHit hit;
             bool isHitSomething = Physics.SphereCast(ray, 0.1f, out hit, float.PositiveInfinity);
             //bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
-            Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
+            //Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
             if (isHitSomething)
             {
                 //Debug.Log($"Hit {hit.collider.name}");
-                var damageable = hit.collider.GetComponent<IDamageable>();
+                damageable = hit.collider.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
                     damageable.TakeDamage(_damage);

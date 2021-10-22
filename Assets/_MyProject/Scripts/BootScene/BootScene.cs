@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 namespace FPS.BootScene
 {
@@ -19,6 +20,7 @@ namespace FPS.BootScene
         {
             Debug.Log("BootScene.GoToMenuScene()");
             GameManager.Instance.LoadSceneWithName(GameScenes.MENU_SCENE);
+            DOTween.defaultRecyclable = true;
         }
     }
 }
