@@ -74,7 +74,8 @@ namespace FPS
         public void OnBtnRestartClicked()
         {
             DOTween.Clear();
-            GameManager.Instance.LoadSceneWithName(GameScenes.BATTLE_SCENE);
+            //GameManager.Instance.LoadSceneWithName(GameScenes.BATTLE_SCENE);
+            GameManager.Instance.LoadBattleScene();
         }
 
         public void OnBtnMainMenuClicked()

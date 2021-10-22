@@ -130,6 +130,8 @@ namespace FPS
         {
             _chasingBehaviour.Event_ClosedDistance += Handle_Event_ClosedDistance;
             _attackBehaviour.Event_FarDistance += Handle_Event_FarDistance;
+
+            DamagableControl.Instance.DictDamageables.Add(gameObject.GetInstanceID(), this);
         }
 
         private void Handle_Event_FarDistance()

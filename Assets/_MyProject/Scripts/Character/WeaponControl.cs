@@ -126,13 +126,14 @@ namespace FPS
 
         private void Awake()
         {
-            
+
         }
 
         // Start is called before the first frame update
         void Start()
         {
             this.RegisterListener(EventID.GetAmmo, Handle_GetAmmo);
+
         }
 
         public void Init()
@@ -221,12 +222,11 @@ namespace FPS
             //Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
             if (isHitSomething)
             {
-                //Debug.Log($"Hit {hit.collider.name}");
-                damageable = hit.collider.GetComponent<IDamageable>();
-                if (damageable != null)
+                int id = hit.collider.gameObject.GetInstanceID();
+                if (DamagableControl.Instance.DictDamageables.ContainsKey(id))
                 {
-                    damageable.TakeDamage(_damage);
-                    damageable.InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 5.0f);
+                    DamagableControl.Instance.DictDamageables[id].TakeDamage(_damage);
+                    DamagableControl.Instance.DictDamageables[id].InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 5.0f);
                 }
                 else
                 {
@@ -237,7 +237,7 @@ namespace FPS
             }
 
             // Apply gun recoil
-            transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
+            //transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
             CurAmmo--;
             _spawnBulletPoint.SpawnEnity();
             _muzzle.SetActive(true);
