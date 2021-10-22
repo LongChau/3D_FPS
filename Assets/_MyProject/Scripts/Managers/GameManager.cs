@@ -96,7 +96,6 @@ namespace FPS
             yield return waitForSceneLoaded;
             // Then load main scene.
             asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            //asyncOperation.allowSceneActivation = false;
             while (!asyncOperation.isDone)
             {
                 LoadingScenePercentage = asyncOperation.progress;
@@ -105,7 +104,6 @@ namespace FPS
             }
 
             isLoadingScene = false;
-            //asyncOperation.allowSceneActivation = true;
             SceneManager.UnloadSceneAsync(GameScenes.LOADING_SCENE);
         }
 
@@ -152,7 +150,7 @@ namespace FPS
             var waitForBattleScene = new WaitUntil(() =>
             {
                 SetLoadingInfo(90, "Finalizing");
-                return battleSceneOperation .progress >= 0.9f;
+                return battleSceneOperation.progress >= 0.9f;
             });
             battleSceneOperation.allowSceneActivation = false;
             yield return waitForBattleScene;

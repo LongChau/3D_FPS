@@ -28,7 +28,7 @@ namespace FPS
         {
             if (GameManager.Instance.isLoadingScene)
             {
-                _imgLoadingBar.fillAmount = GameManager.Instance.LoadingScenePercentage;
+                _imgLoadingBar.fillAmount = GameManager.Instance.LoadingScenePercentage / 100;
                 _txtLoadingInfo.SetText(GameManager.Instance.LoadingInfo);
             }
         }
