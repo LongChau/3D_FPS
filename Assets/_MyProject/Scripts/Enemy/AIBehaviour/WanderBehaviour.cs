@@ -1,6 +1,7 @@
 ﻿using LC.Ultility;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,7 +32,7 @@ namespace FPS
         {
             _enemy.Agent.isStopped = false;
             if ((_randomTimer -= Time.deltaTime) <= 0 ||  
-                Vector3.Distance(_enemy.transform.position, _enemy.Agent.destination) <= 0.01f)
+                math.distance(_enemy.transform.position, _enemy.Agent.destination) <= 0.01f)
             {
                 Vector3 newPos = RandomNavSphere(_enemy.transform.position, _enemy.WanderRadius, -1);
                 _enemy.Agent.SetDestination(newPos);
@@ -41,7 +42,7 @@ namespace FPS
 
         public Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
         {
-            Vector3 randDirection = Random.insideUnitSphere * dist;
+            Vector3 randDirection = UnityEngine.Random.insideUnitSphere * dist;
             randDirection += origin;
             NavMeshHit navHit;
             NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);

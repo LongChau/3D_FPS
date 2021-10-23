@@ -30,14 +30,18 @@ namespace FPS.Manager
 
         public static void EnableGC()
         {
+#if !UNITY_EDITOR
             GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;
+#endif
             // Trigger a collection to free memory.
             GC.Collect();
         }
 
         public static void DisableGC()
         {
+#if !UNITY_EDITOR
             GarbageCollector.GCMode = GarbageCollector.Mode.Disabled;
+#endif
         }
 
         private void OnDestroy()

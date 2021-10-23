@@ -244,7 +244,7 @@ namespace FPS
             // Apply gun recoil
             transform.DOShakePosition(recoidData.duration, recoidData.strength, recoidData.vibrato, recoidData.randomness);
             CurAmmo--;
-            _spawnBulletPoint.SpawnEnity();
+            //_spawnBulletPoint.SpawnEnity();
             _muzzle.SetActive(true);
             _crossHair.PlayCrossHairEffect(10f, 0.2f, 1f, 0.5f);
             _fireAudio.Play();
