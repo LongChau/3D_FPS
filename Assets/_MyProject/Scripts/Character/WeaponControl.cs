@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using FPS.AssetData;
 using LC.Ultility;
 using System;
 using System.Collections;
@@ -27,6 +28,8 @@ namespace FPS
         [SerializeField]
         private GameObject _muzzle;
 
+        private int _curAmmo;
+
         [Header("---FX---")]
         [SerializeField]
         private GameObject _hitEffect;
@@ -43,29 +46,15 @@ namespace FPS
 
         [Header("---Gun info---")]
         [SerializeField]
-        private EWeaponType _weaponType;
-        [SerializeField]
-        private int _fireRate;
-        [SerializeField]
-        private int _curAmmo;
-        [SerializeField]
-        private int _ammoPerMagazines;
-        [SerializeField]
-        private int _ammoLeft;
-        [SerializeField]
-        private int _maxAmmo;
-        [SerializeField]
-        private int _damage;
-        [SerializeField]
         private Vector3 _camScopePos;
         [SerializeField]
         private Vector3 _camUnScopePos;
         [SerializeField]
-        private float _reloadTime;
+        private int _ammoLeft;
         [SerializeField]
-        private float _takeOutTime;
+        private Weapon _weaponData;
 
-        [Header("Audio")]
+        [Header("---Audio---")]
         [SerializeField]
         private AudioSource _reloadAudio;
         [SerializeField]
@@ -92,7 +81,7 @@ namespace FPS
             }
         }
 
-        public EWeaponType WeaponType => _weaponType;
+        public EWeaponType WeaponType => _weaponData.WeaponType;
 
         public int CurAmmo 
         { 
@@ -114,7 +103,7 @@ namespace FPS
             }
         }
 
-        public int AmmoPerMagazines => _ammoPerMagazines;
+        public int AmmoPerMagazines => _weaponData.AmmoPerMagazines;
 
         public bool IsReloading { get; private set; }
         public bool IsTakingOut { get; private set; }
@@ -122,11 +111,6 @@ namespace FPS
         private void OnValidate()
         {
             _anim = GetComponent<Animator>();
-        }
-
-        private void Awake()
-        {
-
         }
 
         // Start is called before the first frame update
@@ -139,14 +123,14 @@ namespace FPS
         public void Init()
         {
             _nextShootTime = 0f;
-            CurAmmo = _ammoPerMagazines;
-            AmmoLeft = _maxAmmo;
+            CurAmmo = _weaponData.AmmoPerMagazines;
+            AmmoLeft = _weaponData.MaxAmmo;
         }
 
         private void Handle_GetAmmo(object obj)
         {
             int addAmmo = (int)obj;
-            AmmoLeft = Mathf.Clamp(AmmoLeft + addAmmo, 0, _maxAmmo);
+            AmmoLeft = Mathf.Clamp(AmmoLeft + addAmmo, 0, _weaponData.MaxAmmo);
         }
 
         // Update is called once per frame
@@ -160,11 +144,11 @@ namespace FPS
             _muzzle.SetActive(false);
 
             //Shoot
-            if (_weaponType == EWeaponType.AutoRifle)
+            if (_weaponData.WeaponType == EWeaponType.AutoRifle)
             {
                 if (IsTriggered && Time.time >= _nextShootTime && CurAmmo > 0)
                 {
-                    _nextShootTime = Time.time + 1.0f / _fireRate;
+                    _nextShootTime = Time.time + 1.0f / _weaponData.FireRate;
 
                     var recoidData = new RecoidData
                     {
@@ -230,7 +214,7 @@ namespace FPS
                 int id = hit.collider.gameObject.GetInstanceID();
                 if (DamagableControl.Instance.DictDamageables.ContainsKey(id))
                 {
-                    DamagableControl.Instance.DictDamageables[id].TakeDamage(_damage);
+                    DamagableControl.Instance.DictDamageables[id].TakeDamage(_weaponData.Damage);
                     DamagableControl.Instance.DictDamageables[id].InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 5.0f);
                 }
                 else
@@ -257,9 +241,9 @@ namespace FPS
                 _anim.SetTrigger("TriggerReload");
                 _reloadAudio.Play();
                 IsReloading = true;
-                DOVirtual.DelayedCall(_reloadTime, () =>
+                DOVirtual.DelayedCall(_weaponData.ReloadTime, () =>
                 {
-                    var ammoNeeded = _ammoPerMagazines - CurAmmo;
+                    var ammoNeeded = _weaponData.AmmoPerMagazines - CurAmmo;
                     if (ammoNeeded <= AmmoLeft)
                     {
                         CurAmmo += ammoNeeded;
@@ -289,7 +273,7 @@ namespace FPS
         {
             _anim.SetTrigger("TriggerTakeOut");
             IsTakingOut = true;
-            DOVirtual.DelayedCall(_takeOutTime, () =>
+            DOVirtual.DelayedCall(_weaponData.TakeOutTime, () =>
             {
                 _anim.SetTrigger("TriggerIdle");
                 IsTakingOut = false;

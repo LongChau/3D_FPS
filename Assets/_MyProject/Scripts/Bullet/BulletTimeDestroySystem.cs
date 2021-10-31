@@ -22,6 +22,7 @@ namespace FPS
                      if (lifeTimeData.lifeTime <= 0)
                      {
                          EntityManager.DestroyEntity(entity);
+                         //EntityManager.SetEnabled(entity, false);
                      }
                  }).Run();
 
