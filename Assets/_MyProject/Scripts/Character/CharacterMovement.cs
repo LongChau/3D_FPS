@@ -26,8 +26,6 @@ namespace FPS
         private float _movementSpeed;
         [SerializeField]
         private float _jumpHeight;
-        [SerializeField]
-        private float _gravityValue = 9.81f;
 
         [SerializeField]
         private Transform _groundCheck;
@@ -84,7 +82,7 @@ namespace FPS
                 _isJumped = false;
             }
             // Apply gravity here.
-            _dirY -= _gravityValue * Time.fixedDeltaTime;
+            _dirY -= GameConst.GRAVITY_VALUE * Time.fixedDeltaTime;
             move.y = _dirY;
 
             _charCtrl.Move(move * _movementSpeed * Time.fixedDeltaTime);

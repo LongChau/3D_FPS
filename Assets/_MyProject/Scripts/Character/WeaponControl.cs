@@ -200,27 +200,31 @@ namespace FPS
             _fpsCam.transform.DOLocalMove(Vector3.zero, 0.2f);
         }
 
-        IDamageable damageable;
+        RaycastHit[] _hits = new RaycastHit[1];
+        RaycastHit _hit;
+        Vector3 _shakeCam;
+        Ray _ray;
+        bool _isHitSomething;
         private void Fire(RecoidData recoidData)
         {
-            Vector3 shakeCam = new Vector3(UnityEngine.Random.Range(0.05f, 0.2f), UnityEngine.Random.Range(0.05f, 0.2f), 0f);
-            var ray = new Ray(_fpsCam.transform.position + shakeCam, _fpsCam.transform.forward);
-            RaycastHit hit;
-            bool isHitSomething = Physics.SphereCast(ray, 0.1f, out hit, float.PositiveInfinity);
-            //bool isHitSomething = Physics.Raycast(ray, out hit, float.PositiveInfinity);
+            _shakeCam = new Vector3(UnityEngine.Random.Range(0.05f, 0.2f), UnityEngine.Random.Range(0.05f, 0.2f), 0f);
+            _ray = new Ray(_fpsCam.transform.position + _shakeCam, _fpsCam.transform.forward);
+            _isHitSomething = Physics.SphereCast(_ray, 0.1f, out _hit, float.PositiveInfinity);
+            //int hitIndex = Physics.SphereCastNonAlloc(ray, 0.1f, _hits, _fpsCam.farClipPlane);
+            //bool isHitSomething = _hits[hitIndex - 1].collider != null;
             //Debug.DrawRay(_fpsCam.transform.position, _fpsCam.transform.forward * 10f, Color.blue);
-            if (isHitSomething)
+            if (_isHitSomething)
             {
-                int id = hit.collider.gameObject.GetInstanceID();
+                int id = _hit.collider.gameObject.GetInstanceID();
                 if (DamagableControl.Instance.DictDamageables.ContainsKey(id))
                 {
                     DamagableControl.Instance.DictDamageables[id].TakeDamage(_weaponData.Damage);
-                    DamagableControl.Instance.DictDamageables[id].InstantiateEffect(_hitEffect, hit.point, Quaternion.identity, 5.0f);
+                    DamagableControl.Instance.DictDamageables[id].InstantiateEffect(_hitEffect, _hit.point, Quaternion.identity, 5.0f);
                 }
                 else
                 {
                     // Hit environment
-                    var hole = Instantiate(_bulletHole, hit.point, Quaternion.identity);
+                    var hole = Instantiate(_bulletHole, _hit.point, Quaternion.identity);
                     Destroy(hole, 1f);
                 }
             }

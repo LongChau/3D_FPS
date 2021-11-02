@@ -10,7 +10,7 @@ namespace FPS
         // Slot 0 is handgun, slot 1 is rifle.
         [SerializeField]
         private WeaponControl[] _weapons;
-        private WeaponControl _currentArm;
+        private WeaponControl _currentWeapon;
 
         private void Awake()
         {
@@ -20,8 +20,8 @@ namespace FPS
         // Start is called before the first frame update
         void Start()
         {
-            _currentArm = _weapons[0];
-            _currentArm.Active();
+            _currentWeapon = _weapons[0];
+            _currentWeapon.Active();
             _weapons[1].InActive();
         }
 
@@ -35,33 +35,33 @@ namespace FPS
 
         public void OnBtnFirePressed()
         {
-            _currentArm.IsTriggered = true;
+            _currentWeapon.IsTriggered = true;
         }
 
         public void OnBtnFireReleased()
         {
-            _currentArm.IsTriggered = false;
+            _currentWeapon.IsTriggered = false;
         }
 
         public void SwitchInventory(int inventorySlot)
         {
-            if (_currentArm.WeaponType != _weapons[inventorySlot].WeaponType)
+            if (_currentWeapon.WeaponType != _weapons[inventorySlot].WeaponType)
             {
-                _currentArm.InActive();
-                _currentArm = _weapons[inventorySlot];
-                _currentArm.Active();
+                _currentWeapon.InActive();
+                _currentWeapon = _weapons[inventorySlot];
+                _currentWeapon.Active();
             }
         }
 
         public void ReloadWeapon()
         {
-            if (_currentArm.CurAmmo < _currentArm.AmmoPerMagazines && !_currentArm.IsReloading)
-                _currentArm.Reload();
+            if (_currentWeapon.CurAmmo < _currentWeapon.AmmoPerMagazines && !_currentWeapon.IsReloading)
+                _currentWeapon.Reload();
         }
 
         public void ToggleScope()
         {
-            _currentArm.IsScope = !_currentArm.IsScope;
+            _currentWeapon.IsScope = !_currentWeapon.IsScope;
         }
     }
 }

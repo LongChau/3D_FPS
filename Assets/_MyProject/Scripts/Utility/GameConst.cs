@@ -6,6 +6,7 @@ public static class GameConst
     ///  SAVE_PATH = Application.persistentDataPath + "/Save/userInfo.gd"
     /// </summary>
     public static readonly string SAVE_PATH = Application.persistentDataPath + "/Save/userInfo.gd";
+    public const float GRAVITY_VALUE = 9.81f;
 }
 
 public static class GameTags

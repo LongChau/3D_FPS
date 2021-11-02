@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33f6bcb0b69a1d48b63c4da550eb980, type: 3}
-  m_Name: Rifle_AK
+  m_Script: {fileID: 11500000, guid: 3a189bb168d8d90478a09ea08c2f3d72, type: 3}
+  m_Name: DefaultObject
   m_EditorClassIdentifier: 
-  _weaponType: 2
-  _fireRate: 10
-  _curAmmo: 30
-  _ammoPerMagazines: 30
-  _maxAmmo: 90
-  _damage: 10
-  _reloadTime: 2.03
-  _takeOutTime: 1.11
+  m_AddressableAssetSettingsGuid: 58bfc527af332184e8dd562a5a8fb163

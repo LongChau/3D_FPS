@@ -9,6 +9,7 @@ namespace FPS
     {
         [SerializeField]
         private FloatingJoystick _joystick;
+        private RectTransform _currentRect;
 
         private Vector2 _touchDown;
         private Vector2 _touchUp;
@@ -29,6 +30,10 @@ namespace FPS
 #else
             _joystick.gameObject.SetActive(false);
 #endif
+            _currentRect = GetComponent<RectTransform>();
+            var halfScreen = Screen.width / 2f;
+            var rect = _currentRect.rect;
+            _currentRect.rect.Set(rect.x, rect.y, halfScreen, _currentRect.rect.height);
         }
 
         public void OnDrag(PointerEventData eventData)
