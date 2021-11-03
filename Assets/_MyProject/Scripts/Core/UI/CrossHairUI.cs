@@ -8,6 +8,9 @@ namespace FPS
     public class CrossHairUI : MonoBehaviour
     {
         [SerializeField]
+        private float m_CrosshairAperture = 192;
+
+        [SerializeField]
         private RectTransform _upCross;
         [SerializeField]
         private RectTransform _downCross;
@@ -56,21 +59,32 @@ namespace FPS
             //_seq.Play();
         }
 
+        //public float fixedAcccuracy;
+        public void Move(float? accuracy)
+        {
+            float fixedAcccuracy = accuracy ?? 0f;
+            //float fixedAcccuracy = 1.0f;
+            _upCross.localPosition = new Vector3(0, m_CrosshairAperture * (1 - fixedAcccuracy));
+            _downCross.localPosition = new Vector3(0, -m_CrosshairAperture * (1 - fixedAcccuracy));
+            _rightCross.localPosition = new Vector3(m_CrosshairAperture * (1 - fixedAcccuracy), 0);
+            _leftCross.localPosition = new Vector3(-m_CrosshairAperture * (1 - fixedAcccuracy), 0);
+        }
+
         public void PlayCrossHairEffect(float punchForce, float duration, float resetDuration, float moveBackDuration)
         {
-            _upCross.DOPunchAnchorPos(Vector2.up * punchForce, duration);
-            _downCross.DOPunchAnchorPos(Vector2.down * punchForce, duration);
-            _leftCross.DOPunchAnchorPos(Vector2.left * punchForce, duration);
-            _rightCross.DOPunchAnchorPos(Vector2.right * punchForce, duration);
+            //_upCross.DOPunchAnchorPos(Vector2.up * punchForce, duration);
+            //_downCross.DOPunchAnchorPos(Vector2.down * punchForce, duration);
+            //_leftCross.DOPunchAnchorPos(Vector2.left * punchForce, duration);
+            //_rightCross.DOPunchAnchorPos(Vector2.right * punchForce, duration);
 
-            //Back to starting position.
-            DOVirtual.DelayedCall(resetDuration, () =>
-            {
-                _upCross.DOAnchorPos(_startUp, moveBackDuration);
-                _downCross.DOAnchorPos(_startDown, moveBackDuration);
-                _leftCross.DOAnchorPos(_startLeft, moveBackDuration);
-                _rightCross.DOAnchorPos(_startRight, moveBackDuration);
-            });
+            ////Back to starting position.
+            //DOVirtual.DelayedCall(resetDuration, () =>
+            //{
+            //    _upCross.DOAnchorPos(_startUp, moveBackDuration);
+            //    _downCross.DOAnchorPos(_startDown, moveBackDuration);
+            //    _leftCross.DOAnchorPos(_startLeft, moveBackDuration);
+            //    _rightCross.DOAnchorPos(_startRight, moveBackDuration);
+            //});
         }
     }
 }

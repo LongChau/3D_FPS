@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FPS
 {
@@ -67,6 +68,7 @@ namespace FPS
 
         public bool IsTriggered { get; set; }
 
+        [ReadOnly, ShowInInspector]
         public bool IsScope 
         { 
             get => _isScope; 
@@ -83,6 +85,7 @@ namespace FPS
 
         public EWeaponType WeaponType => _weaponData.WeaponType;
 
+        [ReadOnly, ShowInInspector]
         public int CurAmmo 
         { 
             get => _curAmmo;
@@ -143,6 +146,10 @@ namespace FPS
 
             _muzzle.SetActive(false);
 
+            //m_Accuracy = Mathf.Clamp(Mathf.MoveTowards(m_Accuracy, GetCurrentAccuracy(), Time.deltaTime *
+            //                        (m_IsShooting > 0 ? m_GunData.DecreaseRateByShooting : m_GunData.DecreaseRateByWalking)),
+            //                        m_GunData.BaseAccuracy, m_GunData.AIMAccuracy);
+            _crossHair.Move(0.8f);
             //Shoot
             if (_weaponData.WeaponType == EWeaponType.AutoRifle)
             {
@@ -234,7 +241,8 @@ namespace FPS
             CurAmmo--;
             //_spawnBulletPoint.SpawnEnity();
             _muzzle.SetActive(true);
-            _crossHair.PlayCrossHairEffect(10f, 0.2f, 1f, 0.5f);
+            //_crossHair.PlayCrossHairEffect(10f, 0.2f, 1f, 0.5f);
+            _crossHair.Move(null);
             _fireAudio.Play();
         }
 
