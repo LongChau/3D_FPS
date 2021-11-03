@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33f6bcb0b69a1d48b63c4da550eb980, type: 3}
   m_Name: Rifle_AK47
   m_EditorClassIdentifier: 
+  _gunName: AK47
   _weaponType: 2
   _fireRate: 10
   _ammoPerMagazines: 30

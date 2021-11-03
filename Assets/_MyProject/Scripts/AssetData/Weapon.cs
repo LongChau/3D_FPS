@@ -5,9 +5,11 @@ using UnityEngine;
 namespace FPS.AssetData
 {
     [CreateAssetMenu(fileName = "Weapon", menuName = "FPS/AssetData/Weapon")]
-    public class Weapon : ScriptableObject
+    public sealed class Weapon : ScriptableObject
     {
         [Header("---Gun info---")]
+        [SerializeField]
+        private string _gunName;
         [SerializeField]
         private EWeaponType _weaponType;
         [SerializeField]
@@ -30,5 +32,7 @@ namespace FPS.AssetData
         public int Damage => _damage;
         public float ReloadTime => _reloadTime;
         public float TakeOutTime => _takeOutTime;
+
+        public string GunName => _gunName;
     }
 }
