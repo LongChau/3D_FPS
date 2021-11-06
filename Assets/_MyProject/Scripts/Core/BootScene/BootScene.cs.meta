@@ -3,7 +3,9 @@ guid: 9db3ceb00bd158c4a8d5eb3959c43067
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _bootSceneSetting: {fileID: 11400000, guid: 6a9a840cb1e655e419bc837b175093f4,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

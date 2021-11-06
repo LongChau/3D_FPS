@@ -61,9 +61,9 @@ namespace FPS
         {
             //Debug.Log("LookAround()");
             _xAxisRotation = Mathf.Clamp(_xAxisRotation - _lookInput.y, -90f, 90f);
-            //_cachedTransform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
-            var newHeadRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
-            _cachedTransform.localRotation = Quaternion.Lerp(_cachedTransform.localRotation, newHeadRotation, _rotateSpeed * Time.time);
+            _cachedTransform.localRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
+            //var newHeadRotation = Quaternion.Euler(_xAxisRotation, 0f, 0f);
+            //_cachedTransform.localRotation = Quaternion.Lerp(_cachedTransform.localRotation, newHeadRotation, _rotateSpeed * Time.time);
             // Should also rotate the character.
             _charTransform.Rotate(Vector3.up, _lookInput.x);
         }
@@ -77,15 +77,15 @@ namespace FPS
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        _isRightFinger = touch.position.x > _halfScreenWidth;
+                        //_isRightFinger = touch.position.x > _halfScreenWidth;
                         break;
                     case TouchPhase.Moved:
-                        if (_isRightFinger)
-                            _lookInput = touch.deltaPosition * _lookSpeed * Time.deltaTime;
+                        //if (_isRightFinger)
+                        _lookInput = touch.deltaPosition * _lookSpeed * Time.deltaTime;
                         break;
                     case TouchPhase.Stationary:
-                        if (_isRightFinger)
-                            _lookInput = Vector2.zero;
+                        //if (_isRightFinger)
+                        _lookInput = Vector2.zero;
                         break;
                     case TouchPhase.Ended:
                         break;

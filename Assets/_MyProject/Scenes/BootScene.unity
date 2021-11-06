@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -150,6 +150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db3ceb00bd158c4a8d5eb3959c43067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _bootSceneSetting: {fileID: 11400000, guid: 6a9a840cb1e655e419bc837b175093f4, type: 2}
 --- !u!4 &1383670348
 Transform:
   m_ObjectHideFlags: 0

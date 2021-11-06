@@ -19,6 +19,7 @@ public static class GameTags
 
 public static class GameScenes 
 {
+    public const string BOOT_SCENE = "BootScene";
     public const string MENU_SCENE = "MenuScene";
     public const string MAIN_SCENE = "MainScene";
     public const string LOADING_SCENE = "LoadingScene";

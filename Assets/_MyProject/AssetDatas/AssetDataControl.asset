@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb4b1dea475c57d489aa283c89f8e9bb, type: 3}
+  m_Name: AssetDataControl
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _characterAssets:
+    _label: l:CharacterData
+    _assetDatas:
+    - {fileID: 11400000, guid: 3596715639b1556428a25e522a2282a9, type: 2}
+  _enemyAssets:
+    _label: l:EnemyData
+    _assetDatas:
+    - {fileID: 11400000, guid: 43be8b9de0ce50a43aca683287936af6, type: 2}
+  _settingAssets:
+    _label: l:SettingData
+    _assetDatas:
+    - {fileID: 11400000, guid: 6a9a840cb1e655e419bc837b175093f4, type: 2}
+  _weaponAssets:
+    _label: l:WeaponData
+    _assetDatas:
+    - {fileID: 11400000, guid: 9952a20af5fab964692b5fb59f448851, type: 2}
+    - {fileID: 11400000, guid: 249f1cf9a7c0b464b960df502046619b, type: 2}

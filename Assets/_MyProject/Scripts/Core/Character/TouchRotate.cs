@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,6 +22,8 @@ namespace FPS
         public bool IsTouchDown { get; private set; }
         public bool IsTouchUp { get; private set; }
         public bool IsTouchDrag { get; private set; }
+        [ReadOnly, ShowInInspector]
+        public bool IsRightTouch { get; private set; }
         public FloatingJoystick Joystick => _joystick;
 
         private void Awake()

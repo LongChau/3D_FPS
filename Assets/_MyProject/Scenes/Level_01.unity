@@ -27,7 +27,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: d0523d8917957bb429a32997cb0e52b2, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 68072548}
-  m_IndirectSpecularColor: {r: 0.44387215, g: 0.4932412, b: 0.5727407, a: 1}
+  m_IndirectSpecularColor: {r: 0.30667835, g: 0.6265683, b: 0.8286912, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14429,6 +14429,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas-MainScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4994531149604908007, guid: e469578e7131a4c42bda94bffd820167,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 823
       objectReference: {fileID: 0}
     - target: {fileID: 4994531149604908010, guid: e469578e7131a4c42bda94bffd820167,
         type: 3}

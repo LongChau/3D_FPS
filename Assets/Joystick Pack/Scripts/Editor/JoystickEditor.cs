@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(Joystick), true)]
@@ -62,3 +65,4 @@ public class JoystickEditor : Editor
         EditorGUILayout.ObjectField(handle, new GUIContent("Handle", "The handle's RectTransform component."));
     }
 }
+#endif

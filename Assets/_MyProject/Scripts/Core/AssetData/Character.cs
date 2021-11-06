@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FPS
+namespace FPS.AssetData
 {
     [CreateAssetMenu(fileName = "Character", menuName = "FPS/AssetData/Character")]
-    public class Character : ScriptableObject
+    public sealed class Character : ScriptableObject
     {
         [SerializeField]
         private int _maxHealth;

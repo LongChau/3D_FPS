@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FPS
+namespace FPS.AssetData
 {
     [CreateAssetMenu(fileName = "Enemy", menuName = "FPS/AssetData/Enemy")]
-    public class Enemy : ScriptableObject
+    public sealed class Enemy : ScriptableObject
     {
         [SerializeField]
         private int _maxHp;

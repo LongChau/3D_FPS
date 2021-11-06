@@ -10,65 +10,64 @@ using Sirenix.OdinInspector;
 
 namespace FPS
 {
-    public class WeaponControl : MonoBehaviour
+    public partial class WeaponControl : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, TabGroup("HierachyReference")]
         private Animator _anim;
-        [SerializeField]
+        [SerializeField, TabGroup("HierachyReference")]
         private CharacterWeapon _charWeapon;
-        [SerializeField]
+        [SerializeField, TabGroup("HierachyReference")]
         private Transform _head;
-        [SerializeField]
+        [SerializeField, TabGroup("HierachyReference")]
         private Camera _fpsCam;
-        [SerializeField]
+        [SerializeField, TabGroup("HierachyReference")]
         private Transform _gunPlacement;
-        [SerializeField]
+        [SerializeField, TabGroup("HierachyReference")]
         private Camera _weaponCam;
-        [SerializeField]
-        private SpawnBulletPoint _spawnBulletPoint;
-        [SerializeField]
-        private GameObject _muzzle;
-
-        private int _curAmmo;
 
         [Header("---FX---")]
-        [SerializeField]
+        [SerializeField, TabGroup("FX")]
         private GameObject _hitEffect;
-        [SerializeField]
+        [SerializeField, TabGroup("FX")]
         private GameObject _bulletHole;
 
         [Header("---UI---")]
-        [SerializeField]
+        [SerializeField, TabGroup("UI")]
         private TextMeshProUGUI _txtAmmo;
-        [SerializeField]
+        [SerializeField, TabGroup("UI")]
         private TextMeshProUGUI _txtAmmoLeft;
-        [SerializeField]
+        [SerializeField, TabGroup("UI")]
         private CrossHairUI _crossHair;
 
         [Header("---Gun info---")]
-        [SerializeField]
+        [SerializeField, TabGroup("GunInfo")]
         private Vector3 _camScopePos;
-        [SerializeField]
+        [SerializeField, TabGroup("GunInfo")]
         private Vector3 _camUnScopePos;
-        [SerializeField]
+        [SerializeField, TabGroup("GunInfo")]
         private int _ammoLeft;
-        [SerializeField]
+        [SerializeField, TabGroup("GunInfo")]
+        private SpawnBulletPoint _spawnBulletPoint;
+        [SerializeField, TabGroup("GunInfo")]
+        private GameObject _muzzle;
+        [SerializeField, InlineEditor, TabGroup("GunInfo")]
         private Weapon _weaponData;
 
         [Header("---Audio---")]
-        [SerializeField]
+        [SerializeField, TabGroup("Audio")]
         private AudioSource _reloadAudio;
-        [SerializeField]
+        [SerializeField, TabGroup("Audio")]
         private AudioSource _fireAudio;
-        [SerializeField]
+        [SerializeField, TabGroup("Audio")]
         private AudioSource _outOfAmmoAudio;
 
+        private int _curAmmo;
         private float _nextShootTime;
         private bool _isScope;
 
         public bool IsTriggered { get; set; }
 
-        [ReadOnly, ShowInInspector]
+        [ReadOnly, ShowInInspector, TabGroup("Debug")]
         public bool IsScope 
         { 
             get => _isScope; 
@@ -85,7 +84,7 @@ namespace FPS
 
         public EWeaponType WeaponType => _weaponData.WeaponType;
 
-        [ReadOnly, ShowInInspector]
+        [ReadOnly, ShowInInspector, TabGroup("Debug")]
         public int CurAmmo 
         { 
             get => _curAmmo;
