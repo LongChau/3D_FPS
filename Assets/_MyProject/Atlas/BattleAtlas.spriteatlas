@@ -40,10 +40,14 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 5f863bf199b2fe146bc12207b3c90fe9, type: 3}
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 497f90002a413ee49956e5ce6a8ca9a5, type: 3}
@@ -157,5 +161,6 @@ SpriteAtlas:
   - 11
   - 24
   - 10
+  m_RenderDataMap: {}
   m_Tag: BattleAtlas
   m_IsVariant: 0
